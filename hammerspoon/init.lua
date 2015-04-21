@@ -61,6 +61,9 @@ hs.hotkey.bind(hyper, "2", function() resize(1, 0, 2, 2) end)
 -----------------------------------------------
 hs.hotkey.bind(hyper, "i", function() hs.hints.windowHints() end)
 
+
+hs.hotkey.bind(hyper, "q", function() chatmode() end)
+
 -----------------------------------------------
 -- Hyper wsad to switch window focus
 -----------------------------------------------
