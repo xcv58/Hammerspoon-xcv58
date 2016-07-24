@@ -26,15 +26,15 @@ hs.hotkey.bind(hyper, "m", function() resize(0, 0, 1, 1) end)
 local lx = 2
 local lw = 3
 hs.hotkey.bind(hyper, ";", function()
-                resize(lx, 0, lw, 1)
-                lx = (lx + 1) % lw
+    resize(lx, 0, lw, 1)
+    lx = (lx + 1) % lw
 end)
 
 local hy = 0
 local hh = 3
 hs.hotkey.bind(hyper, "g", function()
-                resize(0, hy, 1, hh)
-                hy = (hy + 1) % hh
+    resize(0, hy, 1, hh)
+    hy = (hy + 1) % hh
 end)
 
 -----------------------------------------------
