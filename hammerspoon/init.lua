@@ -1,4 +1,5 @@
-require "xcv58"
+require "utils"
+require "window"
 -----------------------------------------------
 -- Set hyper to ctrl + shift
 -----------------------------------------------
@@ -8,7 +9,7 @@ local hyper = {"ctrl", "shift"}
 -----------------------------------------------
 -- Reload config on write
 -----------------------------------------------
-hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", hs.reload):start()
+hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
 hs.alert.show("Config loaded")
 
 -----------------------------------------------
