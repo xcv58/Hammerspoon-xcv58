@@ -1,5 +1,6 @@
 require "utils"
 require "window"
+require "luncher"
 -----------------------------------------------
 -- Set hyper to ctrl + shift
 -----------------------------------------------
