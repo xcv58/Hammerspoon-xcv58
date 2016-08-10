@@ -3,7 +3,7 @@ local hyper = {"cmd", "shift"}
 local browsers = {"Google Chrome", "Safari"}
 local editors = {"Atom", "Emacs"}
 local emails = {"CloudMagic Email"}
-local chats = {"WeChat", "Messages"}
+local chats = {"HipChat", "WeChat", "Messages"}
 
 hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
 hs.hotkey.bind(hyper, "a", function() toggleApps(emails) end)

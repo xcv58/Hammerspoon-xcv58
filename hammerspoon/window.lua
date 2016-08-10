@@ -138,6 +138,10 @@ hs.hotkey.bind(hyper, 'd', function() hs.window.focusedWindow():focusWindowEast(
 -----------------------------------------------
 -- hyper f for fullscreen, c for center
 -----------------------------------------------
-hs.hotkey.bind({"cmd", "ctrl"}, "f", fullscreen)
 hs.hotkey.bind(hyper, "c", center)
 hs.hotkey.bind(hyper, "f", fullscreen)
+
+-----------------------------------------------
+-- CMD+Ctrl+f for fullscreen
+-----------------------------------------------
+hs.hotkey.bind({"cmd", "ctrl"}, "f", fullscreen)
