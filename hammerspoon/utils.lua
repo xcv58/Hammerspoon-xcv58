@@ -1,3 +1,5 @@
+hs.hotkey.bind({"cmd", "ctrl", "alt"}, "r", hs.reload)
+
 function reloadConfig(files)
     doReload = false
     for _, file in pairs(files) do
