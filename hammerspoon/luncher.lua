@@ -1,10 +1,10 @@
 local hyper = {"cmd", "shift"}
 
-local browsers = {"Google Chrome", "Safari"}
-local editors = {"Atom", "Emacs"}
-local emails = {"CloudMagic Email"}
-local chats = {"HipChat", "WeChat", "Messages"}
-local tweets = {"Tweetbot"}
+local browsers = {{"Google Chrome", "Safari"}}
+local editors = {{"Atom", "Emacs"}}
+local emails = {{"CloudMagic Email"}}
+local chats = {{"HipChat", "WeChat", "Messages"}}
+local tweets = {{"Tweetbot"}}
 
 hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
 hs.hotkey.bind(hyper, "a", function() toggleApps(emails) end)
@@ -12,40 +12,81 @@ hs.hotkey.bind(hyper, "x", function() toggleApps(editors) end)
 hs.hotkey.bind(hyper, "w", function() toggleApps(chats) end)
 hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
 
-function toggleApps (apps)
-    allApps = filterOpenApps(apps)
+function getAppNames (appList)
+    return appList[1]
+end
 
-    if #allApps == 0 then
-        hs.alert.show("Open " .. apps[1])
-        return hs.application.open(apps[1])
+function getLastUsedApp (appList)
+    return appList["LAST_USED_APP"]
+end
+
+function setLastUsedApp (appList, app)
+    appList["LAST_USED_APP"] = app
+end
+
+function toggleApps (appList)
+    local appNames = getAppNames(appList)
+    local lastUsedApp = getLastUsedApp(appList)
+
+    local appMap, nameArray, totalCount = filterOpenApps(appNames)
+
+    if totalCount == 0 then
+        local app = appNames[1]
+        hs.alert.show("Open " .. app)
+        setLastUsedApp(appList, app);
+        return hs.application.open(app)
     end
 
-    needOpen = false
+    local foundLastUsed, index = false, 1
 
-    for _, app in pairs(allApps) do
-        if needOpen then
-            return toggleApp(app)
-        end
-
-        if app:isFrontmost() then
-            needOpen = true
+    for _, appName in pairs(nameArray) do
+        if lastUsedApp == appName then
+            local appObj = appMap[appName]
+            if appObj:isFrontmost() then
+                foundLastUsed = true
+                index = _
+                break
+            else
+                return toggleApp(appObj)
+            end
         end
     end
 
-    return toggleApp(allApps[1])
+    if foundLastUsed then
+        return toggleNextApp(index, totalCount, nameArray, appMap, appList)
+    end
+
+    index = 0
+    for _, appName in pairs(nameArray) do
+        if appMap[appName]:isFrontmost() then
+            index = _
+            break
+        end
+    end
+
+    return toggleNextApp(index, totalCount, nameArray, appMap, appList)
+end
+
+function toggleNextApp (current, totalCount, nameArray, map, appList)
+    local index = math.fmod(current, totalCount) + 1
+    local appName = nameArray[index]
+    local appObj = map[appName]
+    setLastUsedApp(appList, appName)
+    return toggleApp(appObj)
 end
 
 function filterOpenApps (apps)
-    results = {}
+    local map, names = {}, {}
 
     for _, app in pairs(apps) do
         appObj = hs.application.get(app)
         if appObj then
-            results[#results + 1] = appObj
+            map[app] = appObj
+            names[#names + 1] = app
         end
     end
 
-    return results
+    return map, names, #names
 end
 
 function toggleApp (app)
