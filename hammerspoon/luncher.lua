@@ -5,12 +5,14 @@ local editors = {{"Atom", "Emacs"}}
 local emails = {{"CloudMagic Email"}}
 local chats = {{"HipChat", "WeChat", "Messages"}}
 local tweets = {{"Tweetbot"}}
+local ides = {{"com.jetbrains.intellij.ce"}}
 
 hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
 hs.hotkey.bind(hyper, "a", function() toggleApps(emails) end)
 hs.hotkey.bind(hyper, "x", function() toggleApps(editors) end)
 hs.hotkey.bind(hyper, "w", function() toggleApps(chats) end)
 hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
+hs.hotkey.bind(hyper, "j", function() toggleApps(ides) end)
 
 function getAppNames (appList)
     return appList[1]
