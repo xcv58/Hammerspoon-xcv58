@@ -1,7 +1,7 @@
 -----------------------------------------------
 -- Set hyper to ctrl + shift
 -----------------------------------------------
-local hyper = {"ctrl", "shift"}
+local hyper = {"cmd", "ctrl", "shift"}
 
 function tolerance(a, b) return math.abs(a - b) < 32 end
 
