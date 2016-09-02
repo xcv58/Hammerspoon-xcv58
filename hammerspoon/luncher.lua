@@ -1,7 +1,7 @@
 local hyper = {"cmd", "shift"}
 
 local browsers = {{"Google Chrome", "Safari"}}
-local editors = {{"Sublime Text", "com.github.atom", "Emacs"}}
+local editors = {{"com.github.atom", "Sublime Text", "Emacs"}}
 local emails = {{"CloudMagic Email"}}
 local chats = {{"HipChat", "WeChat", "Messages"}}
 local tweets = {{"Tweetbot"}}
