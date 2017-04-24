@@ -17,7 +17,7 @@ hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
 hs.hotkey.bind(hyper, "j", function() toggleApps(ides) end)
 hs.hotkey.bind(hyper, "k", function() toggleApps(debuggers) end)
 
-hs.hotkey.bind(hyper, "r", function() toggleApps(reminders) end)
+-- hs.hotkey.bind(hyper, "r", function() toggleApps(reminders) end)
 
 function getAppNames (appList)
     return appList[1]
