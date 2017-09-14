@@ -38,10 +38,7 @@ function toggleApps (appList)
     local appMap, nameArray, totalCount = filterOpenApps(appNames)
 
     if totalCount == 0 then
-        local app = appNames[1]
-        hs.alert.show("Open " .. app)
-        setLastUsedApp(appList, app);
-        return hs.application.open(app)
+        return openFirstApp(appNames)
     end
 
     local foundLastUsed, index = false, 1
@@ -102,4 +99,16 @@ function toggleApp (app)
     else
         app:activate()
     end
+end
+
+
+function openFirstApp (apps)
+    for _, app in pairs(apps) do
+        local result = hs.application.launchOrFocus(app)
+        if result then
+            hs.alert.show("Open " .. app)
+            return setLastUsedApp(appList, app)
+        end
+    end
+    return hs.alert.show("No app found in:\n" .. table.concat(apps, "\n"))
 end
