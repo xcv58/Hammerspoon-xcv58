@@ -1,11 +1,11 @@
 local hyper = {"cmd", "shift"}
 
 local browsers = {{"Google Chrome", "Safari"}}
-local editorAndIDEs = {{"com.github.atom", "org.vim.MacVim", "Emacs", "com.jetbrains.intellij.ce"}}
-local emails = {{"com.mailplaneapp.Mailplane3"}}
+local editorAndIDEs = {{"Atom Beta", "org.vim.MacVim", "Emacs", "com.jetbrains.intellij.ce"}}
+local emails = {{"Mailplane 3"}}
 local chats = {{"HipChat", "WeChat", "Messages"}}
 local tweets = {{"Tweetbot"}}
-local terminals = {{"com.googlecode.iterm2"}}
+local terminals = {{"iTerm2"}}
 local reminders = {{"Reminders", "Quip"}}
 local debuggers = {{"com.postmanlabs.mac"}}
 
@@ -15,8 +15,8 @@ hs.hotkey.bind(hyper, "x", function() toggleApps(editorAndIDEs) end)
 hs.hotkey.bind(hyper, "w", function() toggleApps(chats) end)
 hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
 hs.hotkey.bind(hyper, "j", function() toggleApps(terminals) end)
-hs.hotkey.bind(hyper, "k", function() toggleApps(debuggers) end)
 
+-- hs.hotkey.bind(hyper, "k", function() toggleApps(debuggers) end)
 -- hs.hotkey.bind(hyper, "r", function() toggleApps(reminders) end)
 
 function getAppNames (appList)
