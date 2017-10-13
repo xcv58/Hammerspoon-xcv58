@@ -145,8 +145,10 @@ hs.hotkey.bind(hyper, "n", function() hs.window.focusedWindow():moveOneScreenWes
 -----------------------------------------------
 -- hyper 1, 2 for diagonal quarter window
 -----------------------------------------------
-hs.hotkey.bind(hyper, "1", function() resize(0, 0, 2, 2) end)
-hs.hotkey.bind(hyper, "2", function() resize(1, 0, 2, 2) end)
+function topLeftCorner() resize(0, 0, 2, 2) end
+function topRightCorner() resize(0, 0, 2, 2) end
+hs.hotkey.bind(hyper, "1", topLeftCorner, nil, topLeftCorner)
+hs.hotkey.bind(hyper, "2", topRightCorner, nil, topRightCorner)
 
 -----------------------------------------------
 -- Hyper i to show window hints
