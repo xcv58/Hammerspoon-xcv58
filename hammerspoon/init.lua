@@ -3,6 +3,7 @@ require "window"
 require "luncher"
 require "control"
 
+hs.alert.defaultStyle.textSize = 64
 -----------------------------------------------
 -- Reload config on write
 -----------------------------------------------

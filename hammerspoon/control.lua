@@ -53,6 +53,7 @@ function setVolume(n)
 
     output:setVolume(newVolume)
 
+    hs.alert.closeAll(0.2)
     hs.alert.show("Volume: " .. math.floor(output:outputVolume()))
 end
 
