@@ -5,6 +5,35 @@ local hyper = {"cmd", "ctrl", "shift"}
 
 function tolerance(a, b) return math.abs(a - b) < 32 end
 
+local STEP = 10
+
+function resizeWindow(f)
+    local win = hs.window.focusedWindow()
+    local frame = win:frame()
+    frame.x = frame.x + (f.x or 0)
+    frame.y = frame.y + (f.y or 0)
+    frame.w = frame.w + (f.w or 0)
+    frame.h = frame.h + (f.h or 0)
+    win:setFrame(frame)
+  end
+
+function resizeWindowWider()
+    resizeWindow({x = -STEP, w = 2 * STEP})
+end
+
+function resizeWindowTaller()
+    resizeWindow({y = -STEP, h = 2 * STEP})
+end
+
+function resizeWindowShorter()
+    resizeWindow({x = STEP, w = -2 * STEP})
+end
+
+function resizeWindowThinner()
+    resizeWindow({y = STEP, h = -2 * STEP})
+end
+
+-- TODO: Add comments
 function resize(x, y, w, h)
     local win = hs.window.focusedWindow()
     local f = win:frame()
@@ -118,6 +147,8 @@ hs.hotkey.bind(hyper, "n", function() hs.window.focusedWindow():moveOneScreenWes
 -----------------------------------------------
 hs.hotkey.bind(hyper, "1", function() resize(0, 0, 2, 2) end)
 hs.hotkey.bind(hyper, "2", function() resize(1, 0, 2, 2) end)
+hs.hotkey.bind(hyper, "3", function() resize(0, 1, 2, 2) end)
+hs.hotkey.bind(hyper, "4", function() resize(1, 1, 2, 2) end)
 
 -----------------------------------------------
 -- Hyper i to show window hints
@@ -127,13 +158,13 @@ hs.hotkey.bind(hyper, "i", function() hs.hints.windowHints() end)
 
 hs.hotkey.bind(hyper, "q", function() chatmode() end)
 
------------------------------------------------
--- Hyper wsad to switch window focus
------------------------------------------------
-hs.hotkey.bind(hyper, 'w', function() hs.window.focusedWindow():focusWindowNorth() end)
-hs.hotkey.bind(hyper, 's', function() hs.window.focusedWindow():focusWindowSouth() end)
-hs.hotkey.bind(hyper, 'a', function() hs.window.focusedWindow():focusWindowWest() end)
-hs.hotkey.bind(hyper, 'd', function() hs.window.focusedWindow():focusWindowEast() end)
+-- -----------------------------------------------
+-- -- Hyper wsad to set window size
+-- -----------------------------------------------
+hs.hotkey.bind(hyper, "w", resizeWindowTaller, nil, resizeWindowTaller)
+hs.hotkey.bind(hyper, "a", resizeWindowShorter, nil, resizeWindowShorter)
+hs.hotkey.bind(hyper, "s", resizeWindowThinner, nil, resizeWindowThinner)
+hs.hotkey.bind(hyper, "d", resizeWindowWider, nil, resizeWindowWider)
 
 -----------------------------------------------
 -- hyper f for fullscreen, c for center
