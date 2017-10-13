@@ -23,7 +23,7 @@ function isSameDirection (direction)
 end
 
 function increaseGap ()
-    gap = math.min(gap * 2, 16)
+    gap = math.min(gap + 1, 5)
 end
 
 function resetGap ()
@@ -66,13 +66,18 @@ function setMuted(mute)
     end
 end
 
-hs.hotkey.bind(hyper, "k", function()
+function increaseVolume()
     changeVolume(INCREASE_VOLUME)
-end)
+end
 
-hs.hotkey.bind(hyper, "j", function()
+function decreaseVolume()
     changeVolume(DECREASE_VOLUME)
-end)
+end
+
+hs.hotkey.bind(hyper, "k", increaseVolume, nil, increaseVolume
+)
+
+hs.hotkey.bind(hyper, "j", decreaseVolume, nil, decreaseVolume)
 
 hs.hotkey.bind(hyper, "h", function()
     setMuted(true)
