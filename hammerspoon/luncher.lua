@@ -1,7 +1,7 @@
 local hyper = {"cmd", "shift"}
 
 local browsers = {{"Google Chrome", "Safari"}}
-local editorAndIDEs = {{"Atom Beta", "org.vim.MacVim", "Emacs", "com.jetbrains.intellij.ce"}}
+local editorAndIDEs = {{"Atom Beta", "org.vim.MacVim", "Emacs", "com.jetbrains.intellij.ce", "Xcode"}}
 local emails = {{"Mailplane 3"}}
 local chats = {{"HipChat", "WeChat", "Messages"}}
 local tweets = {{"Tweetbot"}}
