@@ -147,8 +147,6 @@ hs.hotkey.bind(hyper, "n", function() hs.window.focusedWindow():moveOneScreenWes
 -----------------------------------------------
 hs.hotkey.bind(hyper, "1", function() resize(0, 0, 2, 2) end)
 hs.hotkey.bind(hyper, "2", function() resize(1, 0, 2, 2) end)
-hs.hotkey.bind(hyper, "3", function() resize(0, 1, 2, 2) end)
-hs.hotkey.bind(hyper, "4", function() resize(1, 1, 2, 2) end)
 
 -----------------------------------------------
 -- Hyper i to show window hints
