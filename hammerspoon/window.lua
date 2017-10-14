@@ -95,7 +95,7 @@ ischatmode = false
 function chatmode()
     ischatmode = not ischatmode
     if ischatmode then
-        hs.alert.show('enable chat mode')
+        hs.alert.show("enable chat mode")
         local win = hs.window.focusedWindow()
         local f = win:frame()
         local max = win:screen():frame()
@@ -106,17 +106,21 @@ function chatmode()
         f.h = max.h
         win:setFrame(f)
     else
-        hs.alert.show('disable chat mode')
+        hs.alert.show("disable chat mode")
     end
 end
 
 -----------------------------------------------
 -- hyper h, j, k, l for left, down, up, right half window
 -----------------------------------------------
-hs.hotkey.bind(hyper, "l", function() resize(1, 0, 2, 1) end)
-hs.hotkey.bind(hyper, "h", function() resize(0, 0, 2, 1) end)
-hs.hotkey.bind(hyper, "j", function() resize(0, 1, 1, 2) end)
-hs.hotkey.bind(hyper, "k", function() resize(0, 0, 1, 2) end)
+function leftHalf() resize(0, 0, 2, 1) end
+function bottomHalf() resize(0, 1, 1, 2) end
+function topHalf() resize(0, 0, 1, 2) end
+function rightHalf() resize(1, 0, 2, 1) end
+hs.hotkey.bind(hyper, "h", leftHalf)
+hs.hotkey.bind(hyper, "j", bottomHalf)
+hs.hotkey.bind(hyper, "k", topHalf)
+hs.hotkey.bind(hyper, "l", rightHalf)
 hs.hotkey.bind(hyper, "m", function() resize(0, 0, 1, 1) end)
 
 -----------------------------------------------
@@ -146,7 +150,7 @@ hs.hotkey.bind(hyper, "n", function() hs.window.focusedWindow():moveOneScreenWes
 -- hyper 1, 2 for diagonal quarter window
 -----------------------------------------------
 function topLeftCorner() resize(0, 0, 2, 2) end
-function topRightCorner() resize(0, 0, 2, 2) end
+function topRightCorner() resize(1, 0, 2, 2) end
 hs.hotkey.bind(hyper, "1", topLeftCorner, nil, topLeftCorner)
 hs.hotkey.bind(hyper, "2", topRightCorner, nil, topRightCorner)
 
@@ -176,3 +180,60 @@ hs.hotkey.bind(hyper, "f", fullscreen)
 -- CMD+Ctrl+f for fullscreen
 -----------------------------------------------
 hs.hotkey.bind({"cmd", "ctrl"}, "f", fullscreen)
+
+-- Set hotkey modal
+function getIndicator()
+  local frame = hs.screen.mainScreen():fullFrame()
+  local width = 600
+  local height = 90
+  local f = {
+    x = frame.w / 2 - width / 2,
+    y = height * 2,
+    w = width,
+    h = height
+  }
+  return hs.canvas.new(f):appendElements({
+    action = "fill",
+    fillColor = { alpha = 0.8, black = 1 },
+    type = "rectangle",
+  }, {
+    action = "fill",
+    type = "text",
+    textColor = { red = 1 },
+    textSize = 64,
+    textAlignment = "center",
+    text = "Escape to exit"
+  })
+end
+local inidcator = getIndicator()
+
+local winHotkeyModal = hs.hotkey.modal.new(hyper, "o")
+function winHotkeyModal:entered()
+  hs.alert.closeAll()
+  hs.alert.show("Open window hotkey modal")
+  indicator = inidcator:show(1)
+end
+
+function winHotkeyModal:exited()
+  hs.alert.closeAll()
+  hs.alert.show("Exit window hotkey modal")
+  indicator = indicator:hide(0.2)
+end
+
+winHotkeyModal:bind("", "escape", function()
+  winHotkeyModal:exit()
+end)
+
+winHotkeyModal:bind("", "1", "", topLeftCorner, nil, topLeftCorner)
+winHotkeyModal:bind("", "2", "", topRightCorner, nil, topRightCorner)
+winHotkeyModal:bind("", "h", "", leftHalf, nil, leftHalf)
+winHotkeyModal:bind("", "j", "", bottomHalf, nil, bottomHalf)
+winHotkeyModal:bind("", "k", "", topHalf, nil, topHalf)
+winHotkeyModal:bind("", "l", "", rightHalf, nil, rightHalf)
+winHotkeyModal:bind("", "c", "", center, nil, center)
+winHotkeyModal:bind("", "f", "", fullscreen, nil, fullscreen)
+
+winHotkeyModal:bind("", "w", resizeWindowTaller, nil, resizeWindowTaller)
+winHotkeyModal:bind("", "a", resizeWindowShorter, nil, resizeWindowShorter)
+winHotkeyModal:bind("", "s", resizeWindowThinner, nil, resizeWindowThinner)
+winHotkeyModal:bind("", "d", resizeWindowWider, nil, resizeWindowWider)
