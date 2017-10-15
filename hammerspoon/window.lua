@@ -187,8 +187,8 @@ function getIndicator()
   local width = 600
   local height = 90
   local f = {
-    x = frame.w / 2 - width / 2,
-    y = height * 2,
+    x = frame.x + frame.w / 2 - width / 2,
+    y = frame.y + height * 2,
     w = width,
     h = height
   }
@@ -205,19 +205,20 @@ function getIndicator()
     text = "Escape to exit"
   })
 end
-local inidcator = getIndicator()
+local inidcator = nil
 
 local winHotkeyModal = hs.hotkey.modal.new(hyper, "o")
 function winHotkeyModal:entered()
   hs.alert.closeAll()
   hs.alert.show("Open window hotkey modal")
-  indicator = inidcator:show(1)
+  indicator = getIndicator():show(1)
 end
 
 function winHotkeyModal:exited()
   hs.alert.closeAll()
   hs.alert.show("Exit window hotkey modal")
-  indicator = indicator:hide(0.2)
+  indicator:delete(0.2)
+  indicator = nil
 end
 
 winHotkeyModal:bind("", "escape", function()
