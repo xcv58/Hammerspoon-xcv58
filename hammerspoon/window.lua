@@ -1,36 +1,94 @@
------------------------------------------------
--- Set hyper to ctrl + shift
------------------------------------------------
-local hyper = {"cmd", "ctrl", "shift"}
+-- Set hyper to ⌘ + ⌃ + ⇧
+local hyper = {"⌘", "⌃", "⇧"}
 
 function tolerance(a, b) return math.abs(a - b) < 32 end
 
 local STEP = 10
 
+function getStepX()
+    local win = hs.window.focusedWindow()
+    local f = win:screen():frame()
+    return f.w / STEP
+end
+
+function getStepY()
+    local win = hs.window.focusedWindow()
+    local f = win:screen():frame()
+    return f.h / STEP
+end
+
 function resizeWindow(f)
     local win = hs.window.focusedWindow()
     local frame = win:frame()
-    frame.x = frame.x + (f.x or 0)
-    frame.y = frame.y + (f.y or 0)
-    frame.w = frame.w + (f.w or 0)
-    frame.h = frame.h + (f.h or 0)
+    local newFrame = {
+      x = frame.x + (f.x or 0),
+      y = frame.y + (f.y or 0),
+      w = frame.w + (f.w or 0),
+      h = frame.h + (f.h or 0)
+    }
+    if newFrame.w <= 0 then
+      newFrame.w = 0
+      newFrame.x = frame.x
+    end
+    if newFrame.h <= 0 then
+      newFrame.h = 0
+      newFrame.y = frame.y
+    end
+    win:setFrame(newFrame)
+end
+
+function windowHeightMax()
+    local win = hs.window.focusedWindow()
+    local f = win:screen():frame()
+    local frame = win:frame()
+    frame.y = 0
+    frame.h = f.h
     win:setFrame(frame)
-  end
+end
+
+function windowWidthMax()
+    local win = hs.window.focusedWindow()
+    local f = win:screen():frame()
+    local frame = win:frame()
+    frame.x = 0
+    frame.w = f.w
+    win:setFrame(frame)
+end
 
 function resizeWindowWider()
-    resizeWindow({x = -STEP, w = 2 * STEP})
+    local delta = getStepX()
+    resizeWindow({x = delta / -2, w = delta})
 end
 
 function resizeWindowTaller()
-    resizeWindow({y = -STEP, h = 2 * STEP})
+    local delta = getStepY()
+    resizeWindow({y = delta / -2, h = delta})
 end
 
 function resizeWindowShorter()
-    resizeWindow({x = STEP, w = -2 * STEP})
+    local delta = getStepX()
+    resizeWindow({x = delta / 2, w = -delta})
 end
 
 function resizeWindowThinner()
-    resizeWindow({y = STEP, h = -2 * STEP})
+    local delta = getStepY()
+    resizeWindow({y = delta / 2, h = -delta})
+end
+
+function moveWindowLeft()
+  resizeWindow({x = -getStepX()})
+end
+
+function moveWindowRight()
+  resizeWindow({x = getStepX()})
+end
+
+function moveWindowTop()
+  resizeWindow({y = -getStepY()})
+end
+
+function moveWindowBottom()
+  resizeWindow({y = getStepY()})
 end
 
 -- TODO: Add comments
@@ -91,6 +149,18 @@ function center()
     win:setFrame(f)
 end
 
+local magicRatio = 0.618
+function golden()
+    local win = hs.window.focusedWindow()
+    local f = win:frame()
+    local max = win:screen():frame()
+    f.w = max.w * magicRatio
+    f.h = max.h * magicRatio
+    f.x = (max.w - max.x - f.w) / 2
+    f.y = (max.h - max.y - f.h) / 2
+    win:setFrame(f)
+end
+
 ischatmode = false
 function chatmode()
     ischatmode = not ischatmode
@@ -123,9 +193,7 @@ hs.hotkey.bind(hyper, "k", topHalf)
 hs.hotkey.bind(hyper, "l", rightHalf)
 hs.hotkey.bind(hyper, "m", function() resize(0, 0, 1, 1) end)
 
------------------------------------------------
--- hyper g, ; for horizontal, vertical fold window
------------------------------------------------
+-- hyper ; for vertical fold window
 local lx = 2
 local lw = 3
 hs.hotkey.bind(hyper, ";", function()
@@ -133,12 +201,8 @@ hs.hotkey.bind(hyper, ";", function()
     lx = (lx + 1) % lw
 end)
 
-local hy = 0
-local hh = 3
-hs.hotkey.bind(hyper, "g", function()
-    resize(0, hy, 1, hh)
-    hy = (hy + 1) % hh
-end)
+-- hyper g for golden window
+hs.hotkey.bind(hyper, "g", golden)
 
 -----------------------------------------------
 -- hyper p, n for move between monitors
@@ -179,7 +243,7 @@ hs.hotkey.bind(hyper, "f", fullscreen)
 -----------------------------------------------
 -- CMD+Ctrl+f for fullscreen
 -----------------------------------------------
-hs.hotkey.bind({"cmd", "ctrl"}, "f", fullscreen)
+hs.hotkey.bind({"⌘", "⌃"}, "f", fullscreen)
 
 -- Set hotkey modal
 function getIndicator()
@@ -227,14 +291,28 @@ end)
 
 winHotkeyModal:bind("", "1", "", topLeftCorner, nil, topLeftCorner)
 winHotkeyModal:bind("", "2", "", topRightCorner, nil, topRightCorner)
-winHotkeyModal:bind("", "h", "", leftHalf, nil, leftHalf)
-winHotkeyModal:bind("", "j", "", bottomHalf, nil, bottomHalf)
-winHotkeyModal:bind("", "k", "", topHalf, nil, topHalf)
-winHotkeyModal:bind("", "l", "", rightHalf, nil, rightHalf)
-winHotkeyModal:bind("", "c", "", center, nil, center)
-winHotkeyModal:bind("", "f", "", fullscreen, nil, fullscreen)
 
-winHotkeyModal:bind("", "w", resizeWindowTaller, nil, resizeWindowTaller)
-winHotkeyModal:bind("", "a", resizeWindowShorter, nil, resizeWindowShorter)
-winHotkeyModal:bind("", "s", resizeWindowThinner, nil, resizeWindowThinner)
-winHotkeyModal:bind("", "d", resizeWindowWider, nil, resizeWindowWider)
+winHotkeyModal:bind("", "h", "", moveWindowLeft, nil, moveWindowLeft)
+winHotkeyModal:bind("", "j", "", moveWindowBottom, nil, moveWindowBottom)
+winHotkeyModal:bind("", "k", "", moveWindowTop, nil, moveWindowTop)
+winHotkeyModal:bind("", "l", "", moveWindowRight, nil, moveWindowRight)
+
+winHotkeyModal:bind("⌃", "h", "", resizeWindowShorter, nil, resizeWindowShorter)
+winHotkeyModal:bind("⌃", "j", "", resizeWindowThinner, nil, resizeWindowThinner)
+winHotkeyModal:bind("⌃", "k", "", resizeWindowTaller, nil, resizeWindowTaller)
+winHotkeyModal:bind("⌃", "l", "", resizeWindowWider, nil, resizeWindowWider)
+
+winHotkeyModal:bind("⇧", "h", "", resizeWindowShorter, nil, resizeWindowShorter)
+winHotkeyModal:bind("⇧", "j", "", resizeWindowThinner, nil, resizeWindowThinner)
+winHotkeyModal:bind("⇧", "k", "", windowHeightMax)
+winHotkeyModal:bind("⇧", "l", "", windowWidthMax)
+
+winHotkeyModal:bind("", "c", "", center)
+winHotkeyModal:bind("", "f", "", fullscreen)
+
+winHotkeyModal:bind("", "w", "", resizeWindowTaller, nil, resizeWindowTaller)
+winHotkeyModal:bind("", "a", "", resizeWindowShorter, nil, resizeWindowShorter)
+winHotkeyModal:bind("", "s", "", resizeWindowThinner, nil, resizeWindowThinner)
+winHotkeyModal:bind("", "d", "", resizeWindowWider, nil, resizeWindowWider)
+
+winHotkeyModal:bind("", "g", "", golden)
