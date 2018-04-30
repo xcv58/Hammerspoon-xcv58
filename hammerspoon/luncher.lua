@@ -13,7 +13,7 @@ hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
 hs.hotkey.bind(hyper, "a", function() toggleApps(emails) end)
 hs.hotkey.bind(hyper, "x", function() toggleApps(editorAndIDEs) end)
 hs.hotkey.bind(hyper, "w", function() toggleApps(chats) end)
-hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
+-- hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
 hs.hotkey.bind(hyper, "j", function() toggleApps(terminals) end)
 
 -- hs.hotkey.bind(hyper, "k", function() toggleApps(debuggers) end)
