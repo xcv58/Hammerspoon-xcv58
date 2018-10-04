@@ -87,3 +87,7 @@ end)
 hs.hotkey.bind(hyper, "g", function()
     setMuted(false)
 end)
+
+hs.hotkey.bind(hyper, "l", function()
+    hs.caffeinate.startScreensaver()
+end)
