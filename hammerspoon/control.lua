@@ -111,6 +111,10 @@ hs.hotkey.bind(hyper, "y", function()
     --     timer = hs.timer.doEvery(2, showTime)
     -- end
     -- Delete an existing highlight if it exists
+    local builtInScreen = hs.screen'Color LCD'
+    print(builtInScreen)
+    local cres = builtInScreen:fullFrame()
+    print(cres)
     if mouseCircle then
         mouseCircle:delete()
         if mouseCircleTimer then
@@ -121,7 +125,11 @@ hs.hotkey.bind(hyper, "y", function()
     mousepoint = hs.mouse.getAbsolutePosition()
     -- Prepare a big red circle around the mouse pointer
     -- mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
-    mouseCircle = hs.drawing.text(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80), "test")
+    padding = 100
+    mouseCircle = hs.drawing.text(
+        hs.geometry.rect(cres.x + padding, cres.y + padding, cres.w - 2 * padding, cres.h - 2 * padding),
+        "test"
+    )
     -- mouseCircle:setStrokeColor({["red"]=1,["blue"]=0,["green"]=0,["alpha"]=1})
     -- mouseCircle:setFill(false)
     -- mouseCircle:setStrokeWidth(5)
