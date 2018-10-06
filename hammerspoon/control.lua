@@ -98,43 +98,65 @@ function showTime (args)
     hs.alert.show("test", hs.alert.defaultStype, hs.screen.mainScreen(), 1)
 end
 
-mouseCircle = nil
-mouseCircleTimer = nil
+canvas = nil
+fadeTime = 0.5
+timeTimer = nil
 
+local function updateTime(x)
+    x.text = os.date("%I:%M:%S")
+end
 
-hs.hotkey.bind(hyper, "y", function()
-    -- hs.dialog.alert("rest")
-    -- if timer then
-    --     timer:stop()
-    --     timer = nil
-    -- else
-    --     timer = hs.timer.doEvery(2, showTime)
-    -- end
-    -- Delete an existing highlight if it exists
-    local builtInScreen = hs.screen'Color LCD'
-    print(builtInScreen)
-    local cres = builtInScreen:fullFrame()
-    print(cres)
-    if mouseCircle then
-        mouseCircle:delete()
-        if mouseCircleTimer then
-            mouseCircleTimer:stop()
-        end
+local function resetTimer()
+    if timeTimer then
+        timeTimer:stop()
+        timeTimer = nil
     end
-    -- Get the current co-ordinates of the mouse pointer
-    mousepoint = hs.mouse.getAbsolutePosition()
-    -- Prepare a big red circle around the mouse pointer
-    -- mouseCircle = hs.drawing.circle(hs.geometry.rect(mousepoint.x-40, mousepoint.y-40, 80, 80))
-    padding = 100
-    mouseCircle = hs.drawing.text(
-        hs.geometry.rect(cres.x + padding, cres.y + padding, cres.w - 2 * padding, cres.h - 2 * padding),
-        "test"
-    )
-    -- mouseCircle:setStrokeColor({["red"]=1,["blue"]=0,["green"]=0,["alpha"]=1})
-    -- mouseCircle:setFill(false)
-    -- mouseCircle:setStrokeWidth(5)
-    mouseCircle:show()
+end
 
-    -- Set a timer to delete the circle after 3 seconds
-    mouseCircleTimer = hs.timer.doAfter(3, function() mouseCircle:delete() end)
+hs.hotkey.bind(hyper, "t", function()
+    local builtInScreen = hs.screen'Color LCD'
+    local cres = builtInScreen:fullFrame()
+    if canvas then
+        canvas:delete(fadeTime)
+        canvas = nil
+        resetTimer()
+        return
+    end
+
+    local textSize = math.min(cres.w, cres.h) / 3.5
+    textSize = math.max(textSize, 36)
+    local width = 5 * textSize
+    local height = 1.3 * textSize
+
+    canvas = hs.canvas.new({
+        x = (cres.w - width) / 2,
+        y = (cres.h - height) / 2,
+        h = height,
+        w = width,
+    }):show(fadeTime)
+    canvas:behavior(hs.canvas.windowBehaviors.canJoinAllSpaces)
+    canvas:level(hs.canvas.windowLevels.desktopIcon)
+
+    canvas[1] = {
+        id = "rectangle",
+        type = "rectangle",
+        fillColor = {hex="#000", alpha=0.61},
+        action = "fill",
+    }
+    canvas[2] = {
+        id = "text",
+        type = "text",
+        textSize = textSize,
+        textAlignment = "center",
+        textFont = "Courier",
+        textLineBreak = "charWrap",
+    }
+    local text = canvas[2]
+
+    updateTime(text)
+    if timeTimer then
+        timeTimer:start()
+    else
+        timeTimer = hs.timer.doEvery(1, function() updateTime(text) end)
+    end
 end)
