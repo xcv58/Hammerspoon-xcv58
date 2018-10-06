@@ -14,8 +14,12 @@ obj.author = "ashfinal <ashfinal@gmail.com>"
 obj.homepage = "https://github.com/Hammerspoon/Spoons"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
-obj.calw = 260
-obj.calh = 184
+local cscreen = hs.screen.mainScreen()
+local cres = cscreen:fullFrame()
+
+obj.calh = cres.h / 3
+obj.calw = obj.calh * 1.41
+obj.fontSize = 30
 
 local function updateCalCanvas()
     local titlestr = os.date("%B %Y")
@@ -69,7 +73,7 @@ function obj:init()
 
     obj.canvas = hs.canvas.new({
         x = cres.w-obj.calw-20,
-        y = cres.h-obj.calh-20,
+        y = 20,
         w = obj.calw,
         h = obj.calh
     }):show()
@@ -90,7 +94,7 @@ function obj:init()
         type = "text",
         text = "",
         textFont = "Courier",
-        textSize = 16,
+        textSize = obj.fontSize,
         textColor = calcolor,
         textAlignment = "center",
         frame = {
@@ -108,7 +112,7 @@ function obj:init()
             type = "text",
             text = weeknames[i],
             textFont = "Courier",
-            textSize = 16,
+            textSize = obj.fontSize,
             textColor = calcolor,
             textAlignment = "center",
             frame = {
@@ -127,7 +131,7 @@ function obj:init()
                 type = "text",
                 text = "",
                 textFont = "Courier",
-                textSize = 16,
+                textSize = obj.fontSize,
                 textColor = calcolor,
                 textAlignment = "center",
                 frame = {
@@ -146,7 +150,7 @@ function obj:init()
             type = "text",
             text = "",
             textFont = "Courier",
-            textSize = 16,
+            textSize = obj.fontSize,
             textColor = weeknumcolor,
             textAlignment = "center",
             frame = {

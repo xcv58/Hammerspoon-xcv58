@@ -142,6 +142,7 @@ local function toggleTime()
         type = "rectangle",
         fillColor = {hex="#000", alpha=0.61},
         action = "fill",
+        roundedRectRadii = {xRadius = 8, yRadius = 8},
     }
     canvas[2] = {
         id = "text",
