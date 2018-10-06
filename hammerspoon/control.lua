@@ -113,7 +113,7 @@ local function resetTimer()
     end
 end
 
-hs.hotkey.bind(hyper, "t", function()
+local function toggleTime()
     local builtInScreen = hs.screen'Color LCD'
     local cres = builtInScreen:fullFrame()
     if canvas then
@@ -159,4 +159,7 @@ hs.hotkey.bind(hyper, "t", function()
     else
         timeTimer = hs.timer.doEvery(1, function() updateTime(text) end)
     end
-end)
+end
+
+hs.hotkey.bind(hyper, "t", toggleTime)
+toggleTime()
