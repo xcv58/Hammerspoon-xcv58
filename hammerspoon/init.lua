@@ -16,8 +16,8 @@ hs.loadSpoon("ModalMgr")
 -- Define default Spoons which will be loaded later
 if not hspoon_list then
   hspoon_list = {
-   "Calendar",
-    "CircleClock",
+    "Calendar",
+    -- "CircleClock",
   }
 end
 
