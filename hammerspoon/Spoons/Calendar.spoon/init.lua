@@ -14,10 +14,15 @@ obj.author = "ashfinal <ashfinal@gmail.com>"
 obj.homepage = "https://github.com/Hammerspoon/Spoons"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
-local cscreen = hs.screen.mainScreen()
+local function getScreen()
+    -- return hs.screen.mainScreen()
+    return hs.screen'Color LCD'
+end
+
+local cscreen = getScreen()
 local cres = cscreen:fullFrame()
 
-obj.calh = cres.h / 3
+obj.calh = math.min(cres.h / 3, 400)
 obj.calw = obj.calh * 1.41
 obj.fontSize = 30
 
@@ -68,12 +73,12 @@ function obj:init()
     local calcolor = {red=235/255, blue=235/255, green=235/255}
     local calbgcolor = {red=0, blue=0, green=0, alpha=0.3}
     local weeknumcolor = {red=246/255, blue=246/255, green=246/255, alpha=0.5}
-    local cscreen = hs.screen.mainScreen()
+    local cscreen = getScreen()
     local cres = cscreen:fullFrame()
 
     obj.canvas = hs.canvas.new({
-        x = cres.w-obj.calw-20,
-        y = 20,
+        x = cres.x + cres.w-obj.calw-20,
+        y = cres.y + 20,
         w = obj.calw,
         h = obj.calh
     }):show()
