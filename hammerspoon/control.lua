@@ -129,8 +129,8 @@ local function toggleTime()
     local height = 1.3 * textSize
 
     canvas = hs.canvas.new({
-        x = (cres.w - width) / 2,
-        y = (cres.h - height) / 2,
+        x = cres.x + (cres.w - width) / 2,
+        y = cres.y + (cres.h - height) / 2,
         h = height,
         w = width,
     }):show(fadeTime)
