@@ -2,6 +2,7 @@ require "utils"
 require "window"
 require "luncher"
 require "control"
+require "timer"
 require "events"
 
 hs.alert.defaultStyle.textSize = 64
