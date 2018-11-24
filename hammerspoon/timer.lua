@@ -5,6 +5,16 @@ local timer = nil
 canvas = nil
 fadeTime = 0.5
 timeTimer = nil
+screenWatcher = nil
+
+local function timerHandler(type)
+    if type == hs.caffeinate.watcher.screensDidUnlock then
+        if timeTimer then
+            toggleTimer()
+            toggleTimer()
+        end
+    end
+end
 
 local function updateTime(x)
     x.text = os.date("%I:%M:%S")
@@ -14,10 +24,12 @@ local function stopTimer()
     if timeTimer then
         timeTimer:stop()
         timeTimer = nil
+        screenWatcher:stop()
+        screenWatcher = nil
     end
 end
 
-local function toggleTimer()
+function toggleTimer()
     local builtInScreen = hs.screen'Color LCD'
     local cres = builtInScreen:fullFrame()
     if canvas then
@@ -64,6 +76,7 @@ local function toggleTimer()
     else
         timeTimer = hs.timer.doEvery(1, function() updateTime(text) end)
     end
+    screenWatcher = hs.caffeinate.watcher.new(timerHandler):start()
 end
 
 hs.hotkey.bind(hyper, "t", toggleTimer)
