@@ -7,12 +7,10 @@ fadeTime = 0.5
 timeTimer = nil
 screenWatcher = nil
 
-local function timerHandler(type)
-    if type == hs.caffeinate.watcher.screensDidUnlock then
-        if timeTimer then
-            stopTimer()
-            startTimer()
-        end
+local function timerHandler()
+    if timeTimer then
+        stopTimer()
+        startTimer()
     end
 end
 
@@ -21,9 +19,15 @@ local function updateTime(x)
 end
 
 function stopTimer()
+    if canvas then
+        canvas:delete(fadeTime)
+        canvas = nil
+    end
     if timeTimer then
         timeTimer:stop()
         timeTimer = nil
+    end
+    if screenWatcher then
         screenWatcher:stop()
         screenWatcher = nil
     end
@@ -69,7 +73,7 @@ function startTimer()
     else
         timeTimer = hs.timer.doEvery(1, function() updateTime(text) end)
     end
-    screenWatcher = hs.caffeinate.watcher.new(timerHandler):start()
+    screenWatcher = hs.screen.watcher.new(timerHandler):start()
 end
 
 function toggleTimer()
