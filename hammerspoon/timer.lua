@@ -10,8 +10,8 @@ screenWatcher = nil
 local function timerHandler(type)
     if type == hs.caffeinate.watcher.screensDidUnlock then
         if timeTimer then
-            toggleTimer()
-            toggleTimer()
+            stopTimer()
+            startTimer()
         end
     end
 end
@@ -20,7 +20,7 @@ local function updateTime(x)
     x.text = os.date("%I:%M:%S")
 end
 
-local function stopTimer()
+function stopTimer()
     if timeTimer then
         timeTimer:stop()
         timeTimer = nil
@@ -29,16 +29,9 @@ local function stopTimer()
     end
 end
 
-function toggleTimer()
+function startTimer()
     local builtInScreen = hs.screen'Color LCD'
     local cres = builtInScreen:fullFrame()
-    if canvas then
-        canvas:delete(fadeTime)
-        canvas = nil
-        stopTimer()
-        return
-    end
-
     local textSize = math.min(cres.w, cres.h) / 3.5
     textSize = math.max(textSize, 36)
     local width = 5 * textSize
@@ -79,5 +72,16 @@ function toggleTimer()
     screenWatcher = hs.caffeinate.watcher.new(timerHandler):start()
 end
 
+function toggleTimer()
+    if canvas then
+        canvas:delete(fadeTime)
+        canvas = nil
+        stopTimer()
+    else
+        startTimer()
+    end
+end
+
 hs.hotkey.bind(hyper, "t", toggleTimer)
-toggleTimer()
+
+startTimer()
