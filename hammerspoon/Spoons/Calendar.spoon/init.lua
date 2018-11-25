@@ -22,9 +22,9 @@ end
 local cscreen = getScreen()
 local cres = cscreen:fullFrame()
 
-obj.calh = math.min(cres.h / 3, 400)
+obj.calh = math.min(cres.h / 3.2, 400)
 obj.calw = obj.calh * 1.41
-obj.fontSize = 30
+obj.fontSize = 22
 
 local function updateCalCanvas()
     local titlestr = os.date("%B %Y")
@@ -66,6 +66,22 @@ local function updateCalCanvas()
         w = obj.calw,
         h = 20+(obj.calh-20)/8*(needed_rownum+2)
     })
+end
+
+function obj:stop()
+    if obj.canvas then
+        obj.canvas:delete()
+        obj.canvas = nil
+    end
+    if obj.timer then
+        obj.timer:stop()
+        obj.timer = nil
+    end
+end
+
+function obj:toggle()
+    obj:stop()
+    obj:init()
 end
 
 function obj:init()
@@ -187,6 +203,7 @@ function obj:init()
     else
         obj.timer:start()
     end
+    hs.screen.watcher.new(function() obj:toggle() end):start()
 end
 
 return obj

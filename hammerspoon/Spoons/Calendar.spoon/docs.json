@@ -16,26 +16,26 @@
 
     ],
     "desc" : "A calendar inset into the desktop",
-    "type" : "Module",
     "Deprecated" : [
 
     ],
+    "type" : "Module",
     "Constructor" : [
 
     ],
-    "Field" : [
-
-    ],
+    "doc" : "A calendar inset into the desktop\n\nDownload: [https:\/\/github.com\/Hammerspoon\/Spoons\/raw\/master\/Spoons\/Calendar.spoon.zip](https:\/\/github.com\/Hammerspoon\/Spoons\/raw\/master\/Spoons\/Calendar.spoon.zip)",
     "Method" : [
-
-    ],
-    "items" : [
 
     ],
     "Command" : [
 
     ],
-    "doc" : "A calendar inset into the desktop\n\nDownload: [https:\/\/github.com\/Hammerspoon\/Spoons\/raw\/master\/Spoons\/Calendar.spoon.zip](https:\/\/github.com\/Hammerspoon\/Spoons\/raw\/master\/Spoons\/Calendar.spoon.zip)",
+    "Field" : [
+
+    ],
+    "items" : [
+
+    ],
     "name" : "Calendar"
   }
 ]
