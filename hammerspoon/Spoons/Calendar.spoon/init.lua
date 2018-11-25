@@ -203,7 +203,8 @@ function obj:init()
     else
         obj.timer:start()
     end
-    hs.screen.watcher.new(function() obj:toggle() end):start()
 end
+
+hs.screen.watcher.new(function() obj:toggle() end):start()
 
 return obj
