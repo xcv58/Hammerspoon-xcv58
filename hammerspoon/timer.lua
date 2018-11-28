@@ -15,7 +15,7 @@ local function timerHandler()
 end
 
 local function updateTime(x)
-    x.text = os.date("%I:%M:%S")
+    x.text = os.date("%H:%M:%S")
 end
 
 function stopTimer()
