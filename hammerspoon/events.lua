@@ -1,5 +1,5 @@
 function handler(type)
-    if type == hs.caffeinate.watcher.screensDidSleep then
+    if type == hs.caffeinate.watcher.screensDidLock then
         return setMuted(true)
     end
     if type == hs.caffeinate.watcher.screensDidUnlock then
