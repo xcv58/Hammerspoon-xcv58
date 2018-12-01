@@ -5,7 +5,8 @@ local timer = nil
 canvas = nil
 fadeTime = 0.5
 timeTimer = nil
-screenWatcher = nil
+
+loaded = nil
 
 local function timerHandler()
     if timeTimer then
@@ -27,14 +28,13 @@ function stopTimer()
         timeTimer:stop()
         timeTimer = nil
     end
-    if screenWatcher then
-        screenWatcher:stop()
-        screenWatcher = nil
-    end
 end
 
 function startTimer()
     local builtInScreen = hs.screen'Color LCD'
+    if not builtInScreen then
+        return
+    end
     local cres = builtInScreen:fullFrame()
     local textSize = math.min(cres.w, cres.h) / 3.5
     textSize = math.max(textSize, 36)
@@ -73,7 +73,11 @@ function startTimer()
     else
         timeTimer = hs.timer.doEvery(1, function() updateTime(text) end)
     end
-    screenWatcher = hs.screen.watcher.new(timerHandler):start()
+
+    if not loaded then
+        loaded = hs.screen.watcher.new(timerHandler):start()
+        hs.caffeinate.watcher.new(timerHandler):start()
+    end
 end
 
 function toggleTimer()
