@@ -5,7 +5,7 @@ local editorAndIDEs = {{"com.microsoft.VSCode", "Visual Studio Code", "com.githu
 local emails = {{"Kiwi for Gmail", "Mailplane 3"}}
 local chats = {{"Slack", "HipChat", "WeChat", "Telegram", "Messages", "FaceTime"}}
 local tweets = {{"Tweetbot"}}
-local terminals = {{"iTerm2"}}
+local terminals = {{"iTerm2", "iTerm.app"}}
 local reminders = {{"Reminders", "Quip"}}
 local debuggers = {{"com.postmanlabs.mac"}}
 
