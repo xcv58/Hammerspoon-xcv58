@@ -15,8 +15,11 @@ obj.homepage = "https://github.com/Hammerspoon/Spoons"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 local function getScreen()
-    -- return hs.screen.mainScreen()
-    return hs.screen'Color LCD'
+    local mainScreen = hs.screen'Color LCD'
+    if mainScreen then
+        return mainScreen
+    end
+    return hs.screen.mainScreen()
 end
 
 local cscreen = getScreen()

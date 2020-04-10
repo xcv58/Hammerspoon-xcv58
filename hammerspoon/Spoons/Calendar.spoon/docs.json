@@ -15,11 +15,11 @@
     "stripped_doc" : [
 
     ],
-    "type" : "Module",
-    "desc" : "A calendar inset into the desktop",
     "Deprecated" : [
 
     ],
+    "type" : "Module",
+    "desc" : "A calendar inset into the desktop",
     "Constructor" : [
 
     ],
@@ -27,10 +27,10 @@
     "Method" : [
 
     ],
-    "Command" : [
+    "Field" : [
 
     ],
-    "Field" : [
+    "Command" : [
 
     ],
     "items" : [

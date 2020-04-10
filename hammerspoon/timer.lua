@@ -30,8 +30,16 @@ function stopTimer()
     end
 end
 
+local function getScreen()
+    local mainScreen = hs.screen'Color LCD'
+    if mainScreen then
+        return mainScreen
+    end
+    return hs.screen.mainScreen()
+end
+
 function startTimer()
-    local builtInScreen = hs.screen'Color LCD'
+    local builtInScreen = getScreen()
     if not builtInScreen then
         return
     end
