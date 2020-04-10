@@ -1,6 +1,6 @@
 local hyper = {"cmd", "shift"}
 
-local browsers = {{"Google Chrome", "Google Chrome Dev", "Safari", "com.google.Chrome.canary", "Firefox"}}
+local browsers = {{"Google Chrome Dev", "Safari", "com.google.Chrome.canary", "Firefox"}}
 local editorAndIDEs = {{"com.microsoft.VSCode", "Visual Studio Code", "com.github.atom", "org.vim.MacVim", "org.gnu.Emacs", "com.jetbrains.intellij.ce", "com.jetbrains.intellij", "Xcode"}}
 local emails = {{"Kiwi for Gmail", "Mailplane 3"}}
 local chats = {{"Slack", "HipChat", "WeChat", "Telegram", "Messages", "FaceTime"}}
