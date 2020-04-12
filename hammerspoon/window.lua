@@ -235,9 +235,9 @@ hs.hotkey.bind(hyper, "s", resizeWindowThinner, nil, resizeWindowThinner)
 hs.hotkey.bind(hyper, "d", resizeWindowWider, nil, resizeWindowWider)
 
 -----------------------------------------------
--- hyper f for fullscreen, c for center
+-- hyper f for fullscreen, x to center x axis
 -----------------------------------------------
-hs.hotkey.bind(hyper, "c", center)
+hs.hotkey.bind(hyper, "x", center)
 hs.hotkey.bind(hyper, "f", fullscreen)
 
 -----------------------------------------------
