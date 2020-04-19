@@ -4,7 +4,6 @@ require "luncher"
 require "control"
 require "timer"
 require "events"
-require "mic"
 
 hs.alert.defaultStyle.textSize = 64
 -----------------------------------------------
@@ -28,3 +27,7 @@ end
 for _, v in pairs(hspoon_list) do
   hs.loadSpoon(v)
 end
+
+hs.loadSpoon("Microphone"):bindHotKeys()
+
+hs.ipc.cliInstall()
