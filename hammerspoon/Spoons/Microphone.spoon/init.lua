@@ -1,6 +1,6 @@
 --- === Microphone ===
 ---
---- Control Microphone mute state.
+--- Control the default Microphone mute state.
 
 local obj = {}
 obj.__index = obj

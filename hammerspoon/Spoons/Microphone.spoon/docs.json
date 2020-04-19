@@ -114,68 +114,15 @@
     "stripped_doc" : [
 
     ],
-    "type" : "Module",
     "Deprecated" : [
 
     ],
-    "desc" : "Control Microphone mute state.",
+    "type" : "Module",
+    "desc" : "Control the default Microphone mute state.",
     "Constructor" : [
 
     ],
-    "doc" : "Control Microphone mute state.",
-    "Method" : [
-      {
-        "doc" : "init.\n\nParameters:\n * None\n\nReturns:\n * The Microphone object",
-        "def" : "Microphone:init()",
-        "stripped_doc" : [
-          "init.",
-          ""
-        ],
-        "desc" : "init.",
-        "notes" : [
-
-        ],
-        "signature" : "Microphone:init()",
-        "type" : "Method",
-        "returns" : [
-          " * The Microphone object"
-        ],
-        "name" : "init",
-        "parameters" : [
-          " * None",
-          ""
-        ]
-      },
-      {
-        "doc" : "Binds hotkeys for Microphone\n\nParameters:\n * mapping - A table containing hotkey modifier\/key details for the following items:\n  * toggleMute - Toggle the state of default input device\n  * toggleSpeakModal - Toggle the speak mode:\n                       1st hit -> unmute the default input device\n                       2nd hit -> mute the default input device\n\nReturns:\n * The Microphone object",
-        "def" : "Microphone:bindHotkeys(mapping)",
-        "stripped_doc" : [
-          "Binds hotkeys for Microphone",
-          ""
-        ],
-        "desc" : "Binds hotkeys for Microphone",
-        "notes" : [
-
-        ],
-        "signature" : "Microphone:bindHotkeys(mapping)",
-        "type" : "Method",
-        "returns" : [
-          " * The Microphone object"
-        ],
-        "name" : "bindHotkeys",
-        "parameters" : [
-          " * mapping - A table containing hotkey modifier\/key details for the following items:",
-          "  * toggleMute - Toggle the state of default input device",
-          "  * toggleSpeakModal - Toggle the speak mode:",
-          "                       1st hit -> unmute the default input device",
-          "                       2nd hit -> mute the default input device",
-          ""
-        ]
-      }
-    ],
-    "Command" : [
-
-    ],
+    "doc" : "Control the default Microphone mute state.",
     "items" : [
       {
         "doc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
@@ -326,8 +273,61 @@
         ]
       }
     ],
+    "Command" : [
+
+    ],
     "Field" : [
 
+    ],
+    "Method" : [
+      {
+        "doc" : "init.\n\nParameters:\n * None\n\nReturns:\n * The Microphone object",
+        "def" : "Microphone:init()",
+        "stripped_doc" : [
+          "init.",
+          ""
+        ],
+        "desc" : "init.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone:init()",
+        "type" : "Method",
+        "returns" : [
+          " * The Microphone object"
+        ],
+        "name" : "init",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Binds hotkeys for Microphone\n\nParameters:\n * mapping - A table containing hotkey modifier\/key details for the following items:\n  * toggleMute - Toggle the state of default input device\n  * toggleSpeakModal - Toggle the speak mode:\n                       1st hit -> unmute the default input device\n                       2nd hit -> mute the default input device\n\nReturns:\n * The Microphone object",
+        "def" : "Microphone:bindHotkeys(mapping)",
+        "stripped_doc" : [
+          "Binds hotkeys for Microphone",
+          ""
+        ],
+        "desc" : "Binds hotkeys for Microphone",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone:bindHotkeys(mapping)",
+        "type" : "Method",
+        "returns" : [
+          " * The Microphone object"
+        ],
+        "name" : "bindHotkeys",
+        "parameters" : [
+          " * mapping - A table containing hotkey modifier\/key details for the following items:",
+          "  * toggleMute - Toggle the state of default input device",
+          "  * toggleSpeakModal - Toggle the speak mode:",
+          "                       1st hit -> unmute the default input device",
+          "                       2nd hit -> mute the default input device",
+          ""
+        ]
+      }
     ],
     "name" : "Microphone"
   }
