@@ -1,0 +1,334 @@
+[
+  {
+    "Constant" : [
+
+    ],
+    "submodules" : [
+
+    ],
+    "Function" : [
+
+    ],
+    "Variable" : [
+      {
+        "doc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
+        "def" : "Microphone.logger",
+        "stripped_doc" : [
+          "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon."
+        ],
+        "desc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone.logger",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "name" : "logger",
+        "parameters" : [
+
+        ]
+      },
+      {
+        "doc" : "Default hotkey mods.",
+        "def" : "Microphone.hyper",
+        "stripped_doc" : [
+          "Default hotkey mods."
+        ],
+        "desc" : "Default hotkey mods.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone.hyper",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "name" : "hyper",
+        "parameters" : [
+
+        ]
+      },
+      {
+        "doc" : "Default key to toggle mute state.",
+        "def" : "Microphone.toggleKey",
+        "stripped_doc" : [
+          "Default key to toggle mute state."
+        ],
+        "desc" : "Default key to toggle mute state.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone.toggleKey",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "name" : "toggleKey",
+        "parameters" : [
+
+        ]
+      },
+      {
+        "doc" : "Default key to toggle speak mode.",
+        "def" : "Microphone.toggleSpeakModal",
+        "stripped_doc" : [
+          "Default key to toggle speak mode."
+        ],
+        "desc" : "Default key to toggle speak mode.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone.toggleSpeakModal",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "name" : "toggleSpeakModal",
+        "parameters" : [
+
+        ]
+      },
+      {
+        "doc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
+        "def" : "Microphone.defaultMapping",
+        "stripped_doc" : [
+          "Default hotmap mapping to define available functions with related hotkey and init function."
+        ],
+        "desc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone.defaultMapping",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "name" : "defaultMapping",
+        "parameters" : [
+
+        ]
+      }
+    ],
+    "stripped_doc" : [
+
+    ],
+    "type" : "Module",
+    "Deprecated" : [
+
+    ],
+    "desc" : "Control Microphone mute state.",
+    "Constructor" : [
+
+    ],
+    "doc" : "Control Microphone mute state.",
+    "Method" : [
+      {
+        "doc" : "init.\n\nParameters:\n * None\n\nReturns:\n * The Microphone object",
+        "def" : "Microphone:init()",
+        "stripped_doc" : [
+          "init.",
+          ""
+        ],
+        "desc" : "init.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone:init()",
+        "type" : "Method",
+        "returns" : [
+          " * The Microphone object"
+        ],
+        "name" : "init",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      },
+      {
+        "doc" : "Binds hotkeys for Microphone\n\nParameters:\n * mapping - A table containing hotkey modifier\/key details for the following items:\n  * toggleMute - Toggle the state of default input device\n  * toggleSpeakModal - Toggle the speak mode:\n                       1st hit -> unmute the default input device\n                       2nd hit -> mute the default input device\n\nReturns:\n * The Microphone object",
+        "def" : "Microphone:bindHotkeys(mapping)",
+        "stripped_doc" : [
+          "Binds hotkeys for Microphone",
+          ""
+        ],
+        "desc" : "Binds hotkeys for Microphone",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone:bindHotkeys(mapping)",
+        "type" : "Method",
+        "returns" : [
+          " * The Microphone object"
+        ],
+        "name" : "bindHotkeys",
+        "parameters" : [
+          " * mapping - A table containing hotkey modifier\/key details for the following items:",
+          "  * toggleMute - Toggle the state of default input device",
+          "  * toggleSpeakModal - Toggle the speak mode:",
+          "                       1st hit -> unmute the default input device",
+          "                       2nd hit -> mute the default input device",
+          ""
+        ]
+      }
+    ],
+    "Command" : [
+
+    ],
+    "items" : [
+      {
+        "doc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
+        "def" : "Microphone.defaultMapping",
+        "stripped_doc" : [
+          "Default hotmap mapping to define available functions with related hotkey and init function."
+        ],
+        "desc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone.defaultMapping",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "name" : "defaultMapping",
+        "parameters" : [
+
+        ]
+      },
+      {
+        "doc" : "Default hotkey mods.",
+        "def" : "Microphone.hyper",
+        "stripped_doc" : [
+          "Default hotkey mods."
+        ],
+        "desc" : "Default hotkey mods.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone.hyper",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "name" : "hyper",
+        "parameters" : [
+
+        ]
+      },
+      {
+        "doc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
+        "def" : "Microphone.logger",
+        "stripped_doc" : [
+          "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon."
+        ],
+        "desc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone.logger",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "name" : "logger",
+        "parameters" : [
+
+        ]
+      },
+      {
+        "doc" : "Default key to toggle mute state.",
+        "def" : "Microphone.toggleKey",
+        "stripped_doc" : [
+          "Default key to toggle mute state."
+        ],
+        "desc" : "Default key to toggle mute state.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone.toggleKey",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "name" : "toggleKey",
+        "parameters" : [
+
+        ]
+      },
+      {
+        "doc" : "Default key to toggle speak mode.",
+        "def" : "Microphone.toggleSpeakModal",
+        "stripped_doc" : [
+          "Default key to toggle speak mode."
+        ],
+        "desc" : "Default key to toggle speak mode.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone.toggleSpeakModal",
+        "type" : "Variable",
+        "returns" : [
+
+        ],
+        "name" : "toggleSpeakModal",
+        "parameters" : [
+
+        ]
+      },
+      {
+        "doc" : "Binds hotkeys for Microphone\n\nParameters:\n * mapping - A table containing hotkey modifier\/key details for the following items:\n  * toggleMute - Toggle the state of default input device\n  * toggleSpeakModal - Toggle the speak mode:\n                       1st hit -> unmute the default input device\n                       2nd hit -> mute the default input device\n\nReturns:\n * The Microphone object",
+        "def" : "Microphone:bindHotkeys(mapping)",
+        "stripped_doc" : [
+          "Binds hotkeys for Microphone",
+          ""
+        ],
+        "desc" : "Binds hotkeys for Microphone",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone:bindHotkeys(mapping)",
+        "type" : "Method",
+        "returns" : [
+          " * The Microphone object"
+        ],
+        "name" : "bindHotkeys",
+        "parameters" : [
+          " * mapping - A table containing hotkey modifier\/key details for the following items:",
+          "  * toggleMute - Toggle the state of default input device",
+          "  * toggleSpeakModal - Toggle the speak mode:",
+          "                       1st hit -> unmute the default input device",
+          "                       2nd hit -> mute the default input device",
+          ""
+        ]
+      },
+      {
+        "doc" : "init.\n\nParameters:\n * None\n\nReturns:\n * The Microphone object",
+        "def" : "Microphone:init()",
+        "stripped_doc" : [
+          "init.",
+          ""
+        ],
+        "desc" : "init.",
+        "notes" : [
+
+        ],
+        "signature" : "Microphone:init()",
+        "type" : "Method",
+        "returns" : [
+          " * The Microphone object"
+        ],
+        "name" : "init",
+        "parameters" : [
+          " * None",
+          ""
+        ]
+      }
+    ],
+    "Field" : [
+
+    ],
+    "name" : "Microphone"
+  }
+]
