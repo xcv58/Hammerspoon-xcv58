@@ -4,7 +4,6 @@ require "luncher"
 require "control"
 require "timer"
 require "events"
--- require "mic"
 
 hs.alert.defaultStyle.textSize = 64
 -----------------------------------------------
