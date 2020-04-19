@@ -11,14 +11,14 @@
     ],
     "Variable" : [
       {
-        "doc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
-        "stripped_doc" : [
-          "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon."
-        ],
         "parameters" : [
 
         ],
-        "def" : "Microphone.logger",
+        "stripped_doc" : [
+          "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon."
+        ],
+        "desc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
+        "doc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
         "notes" : [
 
         ],
@@ -27,18 +27,18 @@
         "returns" : [
 
         ],
-        "desc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
-        "name" : "logger"
+        "name" : "logger",
+        "def" : "Microphone.logger"
       },
       {
-        "doc" : "Default hotkey mods.",
-        "stripped_doc" : [
-          "Default hotkey mods."
-        ],
         "parameters" : [
 
         ],
-        "def" : "Microphone.hyper",
+        "stripped_doc" : [
+          "Default hotkey mods."
+        ],
+        "desc" : "Default hotkey mods.",
+        "doc" : "Default hotkey mods.",
         "notes" : [
 
         ],
@@ -47,18 +47,18 @@
         "returns" : [
 
         ],
-        "desc" : "Default hotkey mods.",
-        "name" : "hyper"
+        "name" : "hyper",
+        "def" : "Microphone.hyper"
       },
       {
-        "doc" : "Default key to toggle mute state.",
-        "stripped_doc" : [
-          "Default key to toggle mute state."
-        ],
         "parameters" : [
 
         ],
-        "def" : "Microphone.toggleKey",
+        "stripped_doc" : [
+          "Default key to toggle mute state."
+        ],
+        "desc" : "Default key to toggle mute state.",
+        "doc" : "Default key to toggle mute state.",
         "notes" : [
 
         ],
@@ -67,18 +67,18 @@
         "returns" : [
 
         ],
-        "desc" : "Default key to toggle mute state.",
-        "name" : "toggleKey"
+        "name" : "toggleKey",
+        "def" : "Microphone.toggleKey"
       },
       {
-        "doc" : "Default key to toggle speak mode.",
-        "stripped_doc" : [
-          "Default key to toggle speak mode."
-        ],
         "parameters" : [
 
         ],
-        "def" : "Microphone.toggleSpeakModal",
+        "stripped_doc" : [
+          "Default key to toggle speak mode."
+        ],
+        "desc" : "Default key to toggle speak mode.",
+        "doc" : "Default key to toggle speak mode.",
         "notes" : [
 
         ],
@@ -87,18 +87,18 @@
         "returns" : [
 
         ],
-        "desc" : "Default key to toggle speak mode.",
-        "name" : "toggleSpeakModal"
+        "name" : "toggleSpeakModal",
+        "def" : "Microphone.toggleSpeakModal"
       },
       {
-        "doc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
-        "stripped_doc" : [
-          "Default hotmap mapping to define available functions with related hotkey and init function."
-        ],
         "parameters" : [
 
         ],
-        "def" : "Microphone.defaultMapping",
+        "stripped_doc" : [
+          "Default hotmap mapping to define available functions with related hotkey and init function."
+        ],
+        "desc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
+        "doc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
         "notes" : [
 
         ],
@@ -107,14 +107,14 @@
         "returns" : [
 
         ],
-        "desc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
-        "name" : "defaultMapping"
+        "name" : "defaultMapping",
+        "def" : "Microphone.defaultMapping"
       }
     ],
     "stripped_doc" : [
 
     ],
-    "desc" : "Control the default Microphone mute state.",
+    "desc" : "Control the default Microphone mute state, [instructions](https:\/\/github.com\/xcv58\/Hammerspoon-xcv58\/wiki\/Microphone-Spoon).",
     "Deprecated" : [
 
     ],
@@ -122,19 +122,19 @@
     "Constructor" : [
 
     ],
-    "doc" : "Control the default Microphone mute state.\n\nDownload: [https:\/\/github.com\/xcv58\/Hammerspoon-xcv58\/raw\/master\/hammerspoon\/Spoons\/Microphone.spoon.zip](https:\/\/github.com\/xcv58\/Hammerspoon-xcv58\/raw\/master\/hammerspoon\/Spoons\/Microphone.spoon.zip)",
+    "doc" : "Control the default Microphone mute state, [instructions](https:\/\/github.com\/xcv58\/Hammerspoon-xcv58\/wiki\/Microphone-Spoon).\n\nDownload: [https:\/\/github.com\/xcv58\/Hammerspoon-xcv58\/raw\/master\/hammerspoon\/Spoons\/Microphone.spoon.zip](https:\/\/github.com\/xcv58\/Hammerspoon-xcv58\/raw\/master\/hammerspoon\/Spoons\/Microphone.spoon.zip)",
     "Method" : [
       {
-        "doc" : "init.\n\nParameters:\n * None\n\nReturns:\n * The Microphone object",
-        "stripped_doc" : [
-          "init.",
-          ""
-        ],
         "parameters" : [
           " * None",
           ""
         ],
-        "def" : "Microphone:init()",
+        "stripped_doc" : [
+          "init.",
+          ""
+        ],
+        "desc" : "init.",
+        "doc" : "init.\n\nParameters:\n * None\n\nReturns:\n * The Microphone object",
         "notes" : [
 
         ],
@@ -143,15 +143,10 @@
         "returns" : [
           " * The Microphone object"
         ],
-        "desc" : "init.",
-        "name" : "init"
+        "name" : "init",
+        "def" : "Microphone:init()"
       },
       {
-        "doc" : "Binds hotkeys for Microphone\n\nParameters:\n * mapping - A table containing hotkey modifier\/key details for the following items:\n  * toggleMute - Toggle the state of default input device\n  * toggleSpeakModal - Toggle the speak mode:\n                       1st hit -> unmute the default input device\n                       2nd hit -> mute the default input device\n\nReturns:\n * The Microphone object",
-        "stripped_doc" : [
-          "Binds hotkeys for Microphone",
-          ""
-        ],
         "parameters" : [
           " * mapping - A table containing hotkey modifier\/key details for the following items:",
           "  * toggleMute - Toggle the state of default input device",
@@ -160,7 +155,12 @@
           "                       2nd hit -> mute the default input device",
           ""
         ],
-        "def" : "Microphone:bindHotkeys(mapping)",
+        "stripped_doc" : [
+          "Binds hotkeys for Microphone",
+          ""
+        ],
+        "desc" : "Binds hotkeys for Microphone",
+        "doc" : "Binds hotkeys for Microphone\n\nParameters:\n * mapping - A table containing hotkey modifier\/key details for the following items:\n  * toggleMute - Toggle the state of default input device\n  * toggleSpeakModal - Toggle the speak mode:\n                       1st hit -> unmute the default input device\n                       2nd hit -> mute the default input device\n\nReturns:\n * The Microphone object",
         "notes" : [
 
         ],
@@ -169,8 +169,8 @@
         "returns" : [
           " * The Microphone object"
         ],
-        "desc" : "Binds hotkeys for Microphone",
-        "name" : "bindHotkeys"
+        "name" : "bindHotkeys",
+        "def" : "Microphone:bindHotkeys(mapping)"
       }
     ],
     "Command" : [
@@ -181,14 +181,14 @@
     ],
     "items" : [
       {
-        "doc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
-        "stripped_doc" : [
-          "Default hotmap mapping to define available functions with related hotkey and init function."
-        ],
         "parameters" : [
 
         ],
-        "def" : "Microphone.defaultMapping",
+        "stripped_doc" : [
+          "Default hotmap mapping to define available functions with related hotkey and init function."
+        ],
+        "desc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
+        "doc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
         "notes" : [
 
         ],
@@ -197,18 +197,18 @@
         "returns" : [
 
         ],
-        "desc" : "Default hotmap mapping to define available functions with related hotkey and init function.",
-        "name" : "defaultMapping"
+        "name" : "defaultMapping",
+        "def" : "Microphone.defaultMapping"
       },
       {
-        "doc" : "Default hotkey mods.",
-        "stripped_doc" : [
-          "Default hotkey mods."
-        ],
         "parameters" : [
 
         ],
-        "def" : "Microphone.hyper",
+        "stripped_doc" : [
+          "Default hotkey mods."
+        ],
+        "desc" : "Default hotkey mods.",
+        "doc" : "Default hotkey mods.",
         "notes" : [
 
         ],
@@ -217,18 +217,18 @@
         "returns" : [
 
         ],
-        "desc" : "Default hotkey mods.",
-        "name" : "hyper"
+        "name" : "hyper",
+        "def" : "Microphone.hyper"
       },
       {
-        "doc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
-        "stripped_doc" : [
-          "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon."
-        ],
         "parameters" : [
 
         ],
-        "def" : "Microphone.logger",
+        "stripped_doc" : [
+          "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon."
+        ],
+        "desc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
+        "doc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
         "notes" : [
 
         ],
@@ -237,18 +237,18 @@
         "returns" : [
 
         ],
-        "desc" : "Logger object used within the Spoon. Can be accessed to set the default log level for the messages coming from the Spoon.",
-        "name" : "logger"
+        "name" : "logger",
+        "def" : "Microphone.logger"
       },
       {
-        "doc" : "Default key to toggle mute state.",
-        "stripped_doc" : [
-          "Default key to toggle mute state."
-        ],
         "parameters" : [
 
         ],
-        "def" : "Microphone.toggleKey",
+        "stripped_doc" : [
+          "Default key to toggle mute state."
+        ],
+        "desc" : "Default key to toggle mute state.",
+        "doc" : "Default key to toggle mute state.",
         "notes" : [
 
         ],
@@ -257,18 +257,18 @@
         "returns" : [
 
         ],
-        "desc" : "Default key to toggle mute state.",
-        "name" : "toggleKey"
+        "name" : "toggleKey",
+        "def" : "Microphone.toggleKey"
       },
       {
-        "doc" : "Default key to toggle speak mode.",
-        "stripped_doc" : [
-          "Default key to toggle speak mode."
-        ],
         "parameters" : [
 
         ],
-        "def" : "Microphone.toggleSpeakModal",
+        "stripped_doc" : [
+          "Default key to toggle speak mode."
+        ],
+        "desc" : "Default key to toggle speak mode.",
+        "doc" : "Default key to toggle speak mode.",
         "notes" : [
 
         ],
@@ -277,15 +277,10 @@
         "returns" : [
 
         ],
-        "desc" : "Default key to toggle speak mode.",
-        "name" : "toggleSpeakModal"
+        "name" : "toggleSpeakModal",
+        "def" : "Microphone.toggleSpeakModal"
       },
       {
-        "doc" : "Binds hotkeys for Microphone\n\nParameters:\n * mapping - A table containing hotkey modifier\/key details for the following items:\n  * toggleMute - Toggle the state of default input device\n  * toggleSpeakModal - Toggle the speak mode:\n                       1st hit -> unmute the default input device\n                       2nd hit -> mute the default input device\n\nReturns:\n * The Microphone object",
-        "stripped_doc" : [
-          "Binds hotkeys for Microphone",
-          ""
-        ],
         "parameters" : [
           " * mapping - A table containing hotkey modifier\/key details for the following items:",
           "  * toggleMute - Toggle the state of default input device",
@@ -294,7 +289,12 @@
           "                       2nd hit -> mute the default input device",
           ""
         ],
-        "def" : "Microphone:bindHotkeys(mapping)",
+        "stripped_doc" : [
+          "Binds hotkeys for Microphone",
+          ""
+        ],
+        "desc" : "Binds hotkeys for Microphone",
+        "doc" : "Binds hotkeys for Microphone\n\nParameters:\n * mapping - A table containing hotkey modifier\/key details for the following items:\n  * toggleMute - Toggle the state of default input device\n  * toggleSpeakModal - Toggle the speak mode:\n                       1st hit -> unmute the default input device\n                       2nd hit -> mute the default input device\n\nReturns:\n * The Microphone object",
         "notes" : [
 
         ],
@@ -303,20 +303,20 @@
         "returns" : [
           " * The Microphone object"
         ],
-        "desc" : "Binds hotkeys for Microphone",
-        "name" : "bindHotkeys"
+        "name" : "bindHotkeys",
+        "def" : "Microphone:bindHotkeys(mapping)"
       },
       {
-        "doc" : "init.\n\nParameters:\n * None\n\nReturns:\n * The Microphone object",
-        "stripped_doc" : [
-          "init.",
-          ""
-        ],
         "parameters" : [
           " * None",
           ""
         ],
-        "def" : "Microphone:init()",
+        "stripped_doc" : [
+          "init.",
+          ""
+        ],
+        "desc" : "init.",
+        "doc" : "init.\n\nParameters:\n * None\n\nReturns:\n * The Microphone object",
         "notes" : [
 
         ],
@@ -325,8 +325,8 @@
         "returns" : [
           " * The Microphone object"
         ],
-        "desc" : "init.",
-        "name" : "init"
+        "name" : "init",
+        "def" : "Microphone:init()"
       }
     ],
     "name" : "Microphone"

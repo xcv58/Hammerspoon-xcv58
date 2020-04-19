@@ -1,6 +1,6 @@
 --- === Microphone ===
 ---
---- Control the default Microphone mute state.
+--- Control the default Microphone mute state, [instructions](https://github.com/xcv58/Hammerspoon-xcv58/wiki/Microphone-Spoon).
 ---
 --- Download: [https://github.com/xcv58/Hammerspoon-xcv58/raw/master/hammerspoon/Spoons/Microphone.spoon.zip](https://github.com/xcv58/Hammerspoon-xcv58/raw/master/hammerspoon/Spoons/Microphone.spoon.zip)
 
