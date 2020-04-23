@@ -90,8 +90,8 @@ end
 
 local function getIndicator(hotkeyMods, hotkey)
     local frame = hs.screen.mainScreen():fullFrame()
-    local width = 400
-    local height = 45
+    local width = 420
+    local height = 42
     local f = {
         x = frame.x + frame.w / 2 - width / 2,
         y = frame.y,
@@ -101,13 +101,14 @@ local function getIndicator(hotkeyMods, hotkey)
     return hs.canvas.new(f):appendElements(
         {
             action = "fill",
-            fillColor = {alpha = 0.8, black = 1},
-            type = "rectangle"
+            fillColor = {alpha = 0.2, black = 1},
+            type = "rectangle",
+            trackMouseEnterExit = true
         },
         {
             action = "fill",
             type = "text",
-            textColor = {red = 1},
+            textColor = {alpha = 0.8964, red = 1},
             textSize = 32,
             textAlignment = "center",
             text = modsKeyTostring(hotkeyMods, hotkey) .. " to exit speak mode"
@@ -135,7 +136,7 @@ local function initSpeakMode(hotkeyMods, hotkey)
     function winHotkeyModal:entered()
         hs.alert.closeAll()
         hs.alert.show("Speak mode")
-        indicator = getIndicator(hotkeyMods, hotkey):show(1)
+        indicator = getIndicator(hotkeyMods, hotkey):show()
         obj:setMuted(false)
     end
 
