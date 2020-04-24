@@ -65,7 +65,7 @@ function obj:toggleInputMuted()
     local muted = inputDevice:inputMuted()
     logger.d("toggleInputMuted: " .. tostring(not muted))
     inputDevice:setMuted(not muted)
-    showAlert((muted and "Unmute " or "Mute ") .. inputDevice:name())
+    showAlert((muted and "Unmute" or "Mute") .. ": " .. inputDevice:name())
     return not muted
 end
 
@@ -126,8 +126,11 @@ local function initSpeakMode(hotkeyMods, hotkey)
     local indicator = nil
     local winHotkeyModal = hs.hotkey.modal.new(hotkeyMods, hotkey)
     function winHotkeyModal:exited()
-        hs.alert.closeAll()
-        hs.alert.show("Exit speak mode")
+        local inputDevice = getInputDevice()
+        if not inputDevice then
+            return
+        end
+        showAlert("Exit speak mode: " .. inputDevice:name())
         obj:setMuted(true)
         indicator:delete(0.2)
         indicator = nil
@@ -135,7 +138,11 @@ local function initSpeakMode(hotkeyMods, hotkey)
 
     function winHotkeyModal:entered()
         hs.alert.closeAll()
-        hs.alert.show("Speak mode")
+        local inputDevice = getInputDevice()
+        if not inputDevice then
+            return
+        end
+        showAlert("Speak mode: " .. inputDevice:name())
         indicator = getIndicator(hotkeyMods, hotkey):show()
         obj:setMuted(false)
     end
