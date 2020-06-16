@@ -2,11 +2,15 @@ local hyper = {"cmd", "ctrl"}
 
 local timer = nil
 
-canvas = nil
-fadeTime = 0.5
-timeTimer = nil
+local canvas = nil
+local fadeTime = 0.5
+local timeTimer = nil
 
-loaded = nil
+local loaded = nil
+
+local screenIndex = 0
+
+local logger = hs.logger.new('Timer')
 
 local function timerHandler()
     if timeTimer then
@@ -31,19 +35,24 @@ function stopTimer()
 end
 
 local function getScreen()
-    local mainScreen = hs.screen'Color LCD'
-    if mainScreen then
-        return mainScreen
+    local allScreens = hs.screen.allScreens()
+    screenIndex = screenIndex + 1
+    local screen = allScreens[screenIndex]
+    logger.d("screenIndex: " .. tostring(screenIndex))
+    if not screen then
+        logger.d("reset screenIndex")
+        screenIndex = 1
+        return allScreens[screenIndex]
     end
-    return hs.screen.mainScreen()
+    return screen
 end
 
 function startTimer()
-    local builtInScreen = getScreen()
-    if not builtInScreen then
+    local screen = getScreen()
+    if not screen then
         return
     end
-    local cres = builtInScreen:fullFrame()
+    local cres = screen:fullFrame()
     local textSize = math.min(cres.w, cres.h) / 3.5
     textSize = math.max(textSize, 36)
     local width = 5 * textSize
