@@ -53,9 +53,8 @@ function startTimer()
         return
     end
     local cres = screen:fullFrame()
-    local textSize = math.min(cres.w, cres.h) / 3.5
-    textSize = math.max(textSize, 36)
-    local width = 5 * textSize
+    local width = math.min(cres.w, cres.h) * 0.89
+    local textSize = width / 5
     local height = 1.3 * textSize
 
     canvas = hs.canvas.new({
