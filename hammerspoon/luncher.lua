@@ -95,7 +95,7 @@ end
 
 function toggleApp (app)
     if app:isFrontmost() then
-        hs.application.hide(app)
+        app:hide()
     else
         app:activate()
     end
