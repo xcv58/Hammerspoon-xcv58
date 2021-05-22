@@ -47,8 +47,8 @@ local function showIndicator(appNames, index)
         canvas = nil
     end
     local frame = hs.screen.mainScreen():fullFrame()
-    local width = 420
-    local height = 42 * #appNames
+    local width = 500
+    local height = 60 * #appNames
     local f = {
         x = frame.x + frame.w / 2 - width / 2,
         y = frame.y + frame.h / 2,
@@ -77,7 +77,7 @@ local function showIndicator(appNames, index)
                 w = "100%"
             },
             textColor = (index == i and highlightColor or normalColor),
-            textSize = 32,
+            textSize = 42,
             textAlignment = "center",
             text = appName
         })
