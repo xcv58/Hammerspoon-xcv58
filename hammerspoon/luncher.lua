@@ -4,7 +4,7 @@ local browsers = {{"Google Chrome", "Google Chrome Dev", "Safari", "com.google.C
 local editorAndIDEs = {{"com.microsoft.VSCode", "Visual Studio Code", "com.github.atom", "org.vim.MacVim",
                         "org.gnu.Emacs", "com.jetbrains.intellij.ce", "com.jetbrains.intellij", "Xcode"}}
 local emails = {{"Kiwi for Gmail", "Mailplane 3"}}
-local chats = {{"Slack", "HipChat", "WeChat", "Telegram", "Messages", "FaceTime"}}
+local chats = {{"Slack", "WeChat", "Telegram", "Messages", "FaceTime"}}
 local tweets = {{"Tweetbot"}}
 local terminals = {{"iTerm2", "iTerm.app"}}
 local reminders = {{"Reminders", "Quip"}}
