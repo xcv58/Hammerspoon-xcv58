@@ -19,9 +19,7 @@ local function timerHandler()
     end
 end
 
-local function updateTime(x)
-    x.text = os.date("%H:%M:%S")
-end
+local function updateTime(x) x.text = os.date("%H:%M:%S") end
 
 function stopTimer()
     if canvas then
@@ -49,9 +47,7 @@ end
 
 function startTimer()
     local screen = getScreen()
-    if not screen then
-        return
-    end
+    if not screen then return end
     local cres = screen:fullFrame()
     local width = math.min(cres.w, cres.h) * 0.89
     local textSize = width / 5
@@ -61,7 +57,7 @@ function startTimer()
         x = cres.x + (cres.w - width) / 2,
         y = cres.y + (cres.h - height) / 2,
         h = height,
-        w = width,
+        w = width
     }):show(fadeTime)
     canvas:behavior(hs.canvas.windowBehaviors.canJoinAllSpaces)
     canvas:level(hs.canvas.windowLevels.desktopIcon)
@@ -69,9 +65,9 @@ function startTimer()
     canvas[1] = {
         id = "rectangle",
         type = "rectangle",
-        fillColor = {hex="#000", alpha=0.61},
+        fillColor = {hex = "#000", alpha = 0.61},
         action = "fill",
-        roundedRectRadii = {xRadius = 8, yRadius = 8},
+        roundedRectRadii = {xRadius = 8, yRadius = 8}
     }
     canvas[2] = {
         id = "text",
@@ -79,7 +75,7 @@ function startTimer()
         textSize = textSize,
         textAlignment = "center",
         textFont = "Courier",
-        textLineBreak = "charWrap",
+        textLineBreak = "charWrap"
     }
     local text = canvas[2]
 

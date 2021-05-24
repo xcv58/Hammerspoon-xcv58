@@ -1,8 +1,18 @@
 local hyper = {"cmd", "shift"}
 
-local browsers = {{"Google Chrome", "Google Chrome Dev", "Safari", "com.google.Chrome.canary", "Firefox"}}
-local editorAndIDEs = {{"com.microsoft.VSCode", "Visual Studio Code", "com.github.atom", "org.vim.MacVim",
-                        "org.gnu.Emacs", "com.jetbrains.intellij.ce", "com.jetbrains.intellij", "Xcode"}}
+local browsers = {
+    {
+        "Google Chrome", "Google Chrome Dev", "Safari",
+        "com.google.Chrome.canary", "Firefox"
+    }
+}
+local editorAndIDEs = {
+    {
+        "com.microsoft.VSCode", "Visual Studio Code", "com.github.atom",
+        "org.vim.MacVim", "org.gnu.Emacs", "com.jetbrains.intellij.ce",
+        "com.jetbrains.intellij", "Xcode"
+    }
+}
 local emails = {{"Kiwi for Gmail", "Mailplane 3"}}
 local chats = {{"Slack", "WeChat", "Telegram", "Messages", "FaceTime"}}
 local tweets = {{"Tweetbot"}}
@@ -10,35 +20,19 @@ local terminals = {{"iTerm2", "iTerm.app"}}
 local reminders = {{"Reminders", "Quip"}}
 local debuggers = {{"com.postmanlabs.mac"}}
 
-hs.hotkey.bind(hyper, "s", function()
-    toggleApps(browsers)
-end)
-hs.hotkey.bind(hyper, "a", function()
-    toggleApps(emails)
-end)
-hs.hotkey.bind(hyper, "x", function()
-    toggleApps(editorAndIDEs)
-end)
-hs.hotkey.bind(hyper, "w", function()
-    toggleApps(chats)
-end)
+hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
+hs.hotkey.bind(hyper, "a", function() toggleApps(emails) end)
+hs.hotkey.bind(hyper, "x", function() toggleApps(editorAndIDEs) end)
+hs.hotkey.bind(hyper, "w", function() toggleApps(chats) end)
 -- hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
-hs.hotkey.bind(hyper, "j", function()
-    toggleApps(terminals)
-end)
+hs.hotkey.bind(hyper, "j", function() toggleApps(terminals) end)
 
 -- hs.hotkey.bind(hyper, "k", function() toggleApps(debuggers) end)
 -- hs.hotkey.bind(hyper, "r", function() toggleApps(reminders) end)
 
 local canvas = nil
-local normalColor = {
-    alpha = 0.8964,
-    white = 1
-}
-local highlightColor = {
-    alpha = 0.8964,
-    red = 1
-}
+local normalColor = {alpha = 0.8964, white = 1}
+local highlightColor = {alpha = 0.8964, red = 1}
 
 local function showIndicator(appNames, index)
     if canvas then
@@ -58,10 +52,7 @@ local function showIndicator(appNames, index)
     canvas = hs.canvas.new(f)
     canvas:appendElements({
         action = "fill",
-        fillColor = {
-            alpha = 0.8,
-            black = 1
-        },
+        fillColor = {alpha = 0.8, black = 1},
         type = "rectangle",
         trackMouseEnterExit = true
     })
@@ -87,17 +78,11 @@ local function showIndicator(appNames, index)
     return canvas
 end
 
-function getAppNames(appList)
-    return appList[1]
-end
+function getAppNames(appList) return appList[1] end
 
-function getLastUsedApp(appList)
-    return appList["LAST_USED_APP"]
-end
+function getLastUsedApp(appList) return appList["LAST_USED_APP"] end
 
-function setLastUsedApp(appList, app)
-    appList["LAST_USED_APP"] = app
-end
+function setLastUsedApp(appList, app) appList["LAST_USED_APP"] = app end
 
 function toggleApps(appList)
     local appNames = getAppNames(appList)
@@ -105,9 +90,7 @@ function toggleApps(appList)
 
     local appMap, nameArray, totalCount = filterOpenApps(appNames)
 
-    if totalCount == 0 then
-        return openFirstApp(appNames)
-    end
+    if totalCount == 0 then return openFirstApp(appNames) end
 
     local foundLastUsed, index = false, 1
 

@@ -21,18 +21,18 @@ function resizeWindow(f)
     local win = hs.window.focusedWindow()
     local frame = win:frame()
     local newFrame = {
-      x = frame.x + (f.x or 0),
-      y = frame.y + (f.y or 0),
-      w = frame.w + (f.w or 0),
-      h = frame.h + (f.h or 0)
+        x = frame.x + (f.x or 0),
+        y = frame.y + (f.y or 0),
+        w = frame.w + (f.w or 0),
+        h = frame.h + (f.h or 0)
     }
     if newFrame.w <= 0 then
-      newFrame.w = 0
-      newFrame.x = frame.x
+        newFrame.w = 0
+        newFrame.x = frame.x
     end
     if newFrame.h <= 0 then
-      newFrame.h = 0
-      newFrame.y = frame.y
+        newFrame.h = 0
+        newFrame.y = frame.y
     end
     win:setFrame(newFrame)
 end
@@ -75,21 +75,13 @@ function resizeWindowThinner()
     resizeWindow({y = delta / 2, h = -delta})
 end
 
-function moveWindowLeft()
-  resizeWindow({x = -getStepX()})
-end
+function moveWindowLeft() resizeWindow({x = -getStepX()}) end
 
-function moveWindowRight()
-  resizeWindow({x = getStepX()})
-end
+function moveWindowRight() resizeWindow({x = getStepX()}) end
 
-function moveWindowTop()
-  resizeWindow({y = -getStepY()})
-end
+function moveWindowTop() resizeWindow({y = -getStepY()}) end
 
-function moveWindowBottom()
-  resizeWindow({y = getStepY()})
-end
+function moveWindowBottom() resizeWindow({y = getStepY()}) end
 
 -- TODO: Add comments
 function resize(x, y, w, h)
@@ -106,7 +98,8 @@ function resize(x, y, w, h)
         ww = ww - CHAT_MODE_WIDTH
     end
 
-    if tolerance(f.x, xx) and tolerance(f.y, yy) and tolerance(f.w, ww) and tolerance(f.h, hh) then
+    if tolerance(f.x, xx) and tolerance(f.y, yy) and tolerance(f.w, ww) and
+        tolerance(f.h, hh) then
         if w > h then
             x = (x + 1) % w
         elseif h > w then
@@ -207,8 +200,10 @@ hs.hotkey.bind(hyper, "g", golden)
 -----------------------------------------------
 -- hyper p, n for move between monitors
 -----------------------------------------------
-hs.hotkey.bind(hyper, "p", function() hs.window.focusedWindow():moveOneScreenEast(0) end)
-hs.hotkey.bind(hyper, "n", function() hs.window.focusedWindow():moveOneScreenWest(0) end)
+hs.hotkey.bind(hyper, "p",
+               function() hs.window.focusedWindow():moveOneScreenEast(0) end)
+hs.hotkey.bind(hyper, "n",
+               function() hs.window.focusedWindow():moveOneScreenWest(0) end)
 
 -----------------------------------------------
 -- hyper 1, 2 for diagonal quarter window
@@ -222,7 +217,6 @@ hs.hotkey.bind(hyper, "2", topRightCorner, nil, topRightCorner)
 -- Hyper i to show window hints
 -----------------------------------------------
 hs.hotkey.bind(hyper, "i", function() hs.hints.windowHints() end)
-
 
 hs.hotkey.bind(hyper, "q", function() chatmode() end)
 
@@ -247,47 +241,45 @@ hs.hotkey.bind({"⌘", "⌃"}, "f", fullscreen)
 
 -- Set hotkey modal
 function getIndicator()
-  local frame = hs.screen.mainScreen():fullFrame()
-  local width = 600
-  local height = 90
-  local f = {
-    x = frame.x + frame.w / 2 - width / 2,
-    y = frame.y + height * 2,
-    w = width,
-    h = height
-  }
-  return hs.canvas.new(f):appendElements({
-    action = "fill",
-    fillColor = { alpha = 0.8, black = 1 },
-    type = "rectangle",
-  }, {
-    action = "fill",
-    type = "text",
-    textColor = { red = 1 },
-    textSize = 64,
-    textAlignment = "center",
-    text = "Escape to exit"
-  })
+    local frame = hs.screen.mainScreen():fullFrame()
+    local width = 600
+    local height = 90
+    local f = {
+        x = frame.x + frame.w / 2 - width / 2,
+        y = frame.y + height * 2,
+        w = width,
+        h = height
+    }
+    return hs.canvas.new(f):appendElements({
+        action = "fill",
+        fillColor = {alpha = 0.8, black = 1},
+        type = "rectangle"
+    }, {
+        action = "fill",
+        type = "text",
+        textColor = {red = 1},
+        textSize = 64,
+        textAlignment = "center",
+        text = "Escape to exit"
+    })
 end
 local inidcator = nil
 
 local winHotkeyModal = hs.hotkey.modal.new(hyper, "o")
 function winHotkeyModal:entered()
-  hs.alert.closeAll()
-  hs.alert.show("Open window hotkey modal")
-  indicator = getIndicator():show(1)
+    hs.alert.closeAll()
+    hs.alert.show("Open window hotkey modal")
+    indicator = getIndicator():show(1)
 end
 
 function winHotkeyModal:exited()
-  hs.alert.closeAll()
-  hs.alert.show("Exit window hotkey modal")
-  indicator:delete(0.2)
-  indicator = nil
+    hs.alert.closeAll()
+    hs.alert.show("Exit window hotkey modal")
+    indicator:delete(0.2)
+    indicator = nil
 end
 
-winHotkeyModal:bind("", "escape", function()
-  winHotkeyModal:exit()
-end)
+winHotkeyModal:bind("", "escape", function() winHotkeyModal:exit() end)
 
 winHotkeyModal:bind("", "1", "", topLeftCorner, nil, topLeftCorner)
 winHotkeyModal:bind("", "2", "", topRightCorner, nil, topRightCorner)
@@ -297,13 +289,17 @@ winHotkeyModal:bind("", "j", "", moveWindowBottom, nil, moveWindowBottom)
 winHotkeyModal:bind("", "k", "", moveWindowTop, nil, moveWindowTop)
 winHotkeyModal:bind("", "l", "", moveWindowRight, nil, moveWindowRight)
 
-winHotkeyModal:bind("⌃", "h", "", resizeWindowShorter, nil, resizeWindowShorter)
-winHotkeyModal:bind("⌃", "j", "", resizeWindowThinner, nil, resizeWindowThinner)
+winHotkeyModal:bind("⌃", "h", "", resizeWindowShorter, nil,
+                    resizeWindowShorter)
+winHotkeyModal:bind("⌃", "j", "", resizeWindowThinner, nil,
+                    resizeWindowThinner)
 winHotkeyModal:bind("⌃", "k", "", resizeWindowTaller, nil, resizeWindowTaller)
 winHotkeyModal:bind("⌃", "l", "", resizeWindowWider, nil, resizeWindowWider)
 
-winHotkeyModal:bind("⇧", "h", "", resizeWindowShorter, nil, resizeWindowShorter)
-winHotkeyModal:bind("⇧", "j", "", resizeWindowThinner, nil, resizeWindowThinner)
+winHotkeyModal:bind("⇧", "h", "", resizeWindowShorter, nil,
+                    resizeWindowShorter)
+winHotkeyModal:bind("⇧", "j", "", resizeWindowThinner, nil,
+                    resizeWindowThinner)
 winHotkeyModal:bind("⇧", "k", "", windowHeightMax)
 winHotkeyModal:bind("⇧", "l", "", windowWidthMax)
 

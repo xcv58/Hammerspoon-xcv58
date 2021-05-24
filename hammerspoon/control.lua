@@ -9,28 +9,24 @@ local gap = 1
 --     hs.caffeinate.systemSleep()
 -- end)
 
-function isRecentChange (args)
+function isRecentChange(args)
     local time = hs.timer.localTime()
     local res = time - lastTime < 8
     lastTime = time
     return res
 end
 
-function isSameDirection (direction)
+function isSameDirection(direction)
     local res = lastDirection == direction
     lastDirection = direction
     return res
 end
 
-function increaseGap ()
-    gap = math.min(gap + 1, 5)
-end
+function increaseGap() gap = math.min(gap + 1, 5) end
 
-function resetGap ()
-    gap = 1
-end
+function resetGap() gap = 1 end
 
-function changeVolume (direction)
+function changeVolume(direction)
     local recentChange = isRecentChange()
     local sameDirection = isSameDirection(direction)
     if recentChange and sameDirection then
@@ -44,9 +40,7 @@ end
 function setVolume(n)
     output = hs.audiodevice.defaultOutputDevice()
 
-    if output:muted() then
-        setMuted(false)
-    end
+    if output:muted() then setMuted(false) end
 
     volume = output:outputVolume()
     newVolume = volume + n
@@ -67,27 +61,16 @@ function setMuted(mute)
     end
 end
 
-function increaseVolume()
-    changeVolume(INCREASE_VOLUME)
-end
+function increaseVolume() changeVolume(INCREASE_VOLUME) end
 
-function decreaseVolume()
-    changeVolume(DECREASE_VOLUME)
-end
+function decreaseVolume() changeVolume(DECREASE_VOLUME) end
 
-hs.hotkey.bind(hyper, "k", increaseVolume, nil, increaseVolume
-)
+hs.hotkey.bind(hyper, "k", increaseVolume, nil, increaseVolume)
 
 hs.hotkey.bind(hyper, "j", decreaseVolume, nil, decreaseVolume)
 
-hs.hotkey.bind(hyper, "h", function()
-    setMuted(true)
-end)
+hs.hotkey.bind(hyper, "h", function() setMuted(true) end)
 
-hs.hotkey.bind(hyper, "g", function()
-    setMuted(false)
-end)
+hs.hotkey.bind(hyper, "g", function() setMuted(false) end)
 
-hs.hotkey.bind(hyper, "l", function()
-    hs.caffeinate.startScreensaver()
-end)
+hs.hotkey.bind(hyper, "l", function() hs.caffeinate.startScreensaver() end)
