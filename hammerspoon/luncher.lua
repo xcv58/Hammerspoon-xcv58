@@ -127,8 +127,12 @@ function toggleNextApp(current, totalCount, nameArray, map, appList)
     local appName = nameArray[index]
     local appObj = map[appName]
     setLastUsedApp(appList, appName)
-    showIndicator(nameArray, index)
-    return toggleApp(appObj)
+    if appObj:isFrontmost() then
+        appObj:hide()
+    else
+        appObj:activate()
+        showIndicator(nameArray, index)
+    end
 end
 
 function filterOpenApps(apps)
@@ -143,14 +147,6 @@ function filterOpenApps(apps)
     end
 
     return map, names, #names
-end
-
-function toggleApp(app)
-    if app:isFrontmost() then
-        app:hide()
-    else
-        app:activate()
-    end
 end
 
 function openFirstApp(apps)
