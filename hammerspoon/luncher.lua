@@ -41,7 +41,7 @@ local function showIndicator(appNames, index)
         canvas = nil
     end
     local frame = hs.screen.mainScreen():fullFrame()
-    local width = 500
+    local width = 800
     local height = 60 * #appNames
     local f = {
         x = frame.x + frame.w / 2 - width / 2,
