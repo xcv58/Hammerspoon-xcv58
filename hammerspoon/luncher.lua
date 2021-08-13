@@ -1,3 +1,5 @@
+local logger = hs.logger.new('Luncher')
+
 local hyper = {"cmd", "shift"}
 
 local browsers = {
@@ -85,8 +87,12 @@ function getLastUsedApp(appList) return appList["LAST_USED_APP"] end
 function setLastUsedApp(appList, app) appList["LAST_USED_APP"] = app end
 
 function toggleApps(appList)
+    logger.e("toggleApps")
     local appNames = getAppNames(appList)
     local lastUsedApp = getLastUsedApp(appList)
+    if lastUsedApp then
+        logger.d("lastUsedApp: " .. lastUsedApp)
+    end
 
     local appMap, nameArray, totalCount = filterOpenApps(appNames)
 
@@ -98,11 +104,12 @@ function toggleApps(appList)
         if lastUsedApp == appName then
             local appObj = appMap[appName]
             if appObj:isFrontmost() then
+                logger.d(appName .. "is frontmost")
                 foundLastUsed = true
                 index = _
                 break
             else
-                return toggleNextApp(0, totalCount, nameArray, appMap, appList)
+                return toggleNextApp(index, totalCount, nameArray, appMap, appList)
             end
         end
     end
@@ -127,6 +134,7 @@ function toggleNextApp(current, totalCount, nameArray, map, appList)
     local appName = nameArray[index]
     local appObj = map[appName]
     setLastUsedApp(appList, appName)
+    logger.e("setLastUsedApp: " .. appName)
     if appObj:isFrontmost() then
         appObj:hide()
     else
