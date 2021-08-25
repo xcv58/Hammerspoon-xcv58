@@ -86,8 +86,33 @@ function getLastUsedApp(appList) return appList["LAST_USED_APP"] end
 
 function setLastUsedApp(appList, app) appList["LAST_USED_APP"] = app end
 
+function table_to_string(tbl)
+    local result = "{"
+    for k, v in pairs(tbl) do
+        -- Check the key type (ignore any numerical keys - assume its an array)
+        if type(k) == "string" then
+            result = result.."[\""..k.."\"]".."="
+        end
+
+        -- Check the value type
+        if type(v) == "table" then
+            result = result..table_to_string(v)
+        elseif type(v) == "boolean" then
+            result = result..tostring(v)
+        else
+            result = result.."\""..v.."\""
+        end
+        result = result..","
+    end
+    -- Remove leading commas from the result
+    if result ~= "" then
+        result = result:sub(1, result:len()-1)
+    end
+    return result.."}"
+end
+
 function toggleApps(appList)
-    logger.e("toggleApps")
+    logger.d("toggleApps, appList: " .. table_to_string(appList))
     local appNames = getAppNames(appList)
     local lastUsedApp = getLastUsedApp(appList)
     if lastUsedApp then
@@ -109,7 +134,8 @@ function toggleApps(appList)
                 index = _
                 break
             else
-                return toggleNextApp(index, totalCount, nameArray, appMap, appList)
+                logger.d(appName .. "is not frontmost, index: " .. _)
+                return toggleNextApp(_ - 1, totalCount, nameArray, appMap, appList)
             end
         end
     end
@@ -130,11 +156,12 @@ function toggleApps(appList)
 end
 
 function toggleNextApp(current, totalCount, nameArray, map, appList)
+    logger.d("toggleNextApp: " .. current .. " total: " .. totalCount)
     local index = math.fmod(current, totalCount) + 1
     local appName = nameArray[index]
     local appObj = map[appName]
     setLastUsedApp(appList, appName)
-    logger.e("setLastUsedApp: " .. appName)
+    logger.d("setLastUsedApp: " .. appName)
     if appObj:isFrontmost() then
         appObj:hide()
     else
