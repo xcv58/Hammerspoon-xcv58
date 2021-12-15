@@ -92,7 +92,7 @@ function obj:setMuted(muted)
     return inputDevice:setMuted(muted)
 end
 
-local function getIndicator(hotkeyMods, hotkey)
+local function getIndicator(hotkeyMods, hotkey, name)
     local frame = hs.screen.mainScreen():fullFrame()
     local width = 420
     local height = 42
@@ -115,7 +115,7 @@ local function getIndicator(hotkeyMods, hotkey)
             textColor = {alpha = 0.8964, red = 1},
             textSize = 32,
             textAlignment = "center",
-            text = modsKeyTostring(hotkeyMods, hotkey) .. " to exit speak mode"
+            text = table.concat({ modsKeyTostring(hotkeyMods, hotkey), "to mute", name }, " ")
         }
     )
 end
@@ -143,11 +143,12 @@ local function initSpeakMode(hotkeyMods, hotkey)
     function winHotkeyModal:entered()
         hs.alert.closeAll()
         local inputDevice = getInputDevice()
+        local name = inputDevice:name()
         if not inputDevice then
             return
         end
-        showAlert("Speak mode: " .. inputDevice:name())
-        indicator = getIndicator(hotkeyMods, hotkey):show()
+        showAlert("Speak mode: " .. name)
+        indicator = getIndicator(hotkeyMods, hotkey, name):show()
         obj:setMuted(false)
     end
 
