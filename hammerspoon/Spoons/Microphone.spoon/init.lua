@@ -38,6 +38,10 @@ local function modsKeyTostring(mods, key)
 end
 
 local function getInputDevice()
+    local yeti = hs.audiodevice.findInputByName("Yeti X")
+    if yeti then
+        return yeti
+    end
     return hs.audiodevice.defaultInputDevice()
 end
 
