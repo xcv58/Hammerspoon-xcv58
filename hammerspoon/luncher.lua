@@ -16,7 +16,7 @@ local editorAndIDEs = {
     }
 }
 local emails = {{"Kiwi for Gmail", "Mailplane 3"}}
-local chats = {{"Slack", "WeChat", "Telegram", "Messages", "FaceTime"}}
+local chats = {{"Slack", "WeChat", "Telegram", "Messages", "FaceTime", "Quip"}}
 local tweets = {{"Tweetbot"}}
 local terminals = {{"iTerm2", "iTerm.app"}}
 local reminders = {{"Reminders", "Quip"}}
