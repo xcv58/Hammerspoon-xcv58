@@ -68,12 +68,12 @@ function obj:toggleInputMuted()
     end
     local muted = inputDevice:inputMuted()
     logger.d("toggleInputMuted: " .. tostring(not muted))
-    inputDevice:setMuted(not muted)
+    inputDevice:setInputMuted(not muted)
     showAlert((muted and "Unmute" or "Mute") .. ": " .. inputDevice:name())
     return not muted
 end
 
---- Microphone:setMuted(muted)
+--- Microphone:setInputMuted(muted)
 --- Method
 --- set mute state for default input device.
 ---
@@ -82,14 +82,15 @@ end
 ---
 --- Returns:
 ---  * True if the device's mutedness state was set, or False if it does not support muting. Or nil if no input device.
-function obj:setMuted(muted)
-    logger.d("setMuted:" .. tostring(muted))
+function obj:setInputMuted(muted)
+    logger.d("setInputMuted:" .. tostring(muted))
     inputDevice = getInputDevice()
     if not inputDevice then
         showAlert("No input device")
         return nil
     end
-    return inputDevice:setMuted(muted)
+    inputDevice:setInputMuted(muted)
+    inputDevice:setOutputMuted(true)
 end
 
 local function getIndicator(hotkeyMods, hotkey, name)
@@ -135,7 +136,7 @@ local function initSpeakMode(hotkeyMods, hotkey)
             return
         end
         showAlert("Exit speak mode: " .. inputDevice:name())
-        obj:setMuted(true)
+        obj:setInputMuted(true)
         indicator:delete(0.2)
         indicator = nil
     end
@@ -149,7 +150,7 @@ local function initSpeakMode(hotkeyMods, hotkey)
         end
         showAlert("Speak mode: " .. name)
         indicator = getIndicator(hotkeyMods, hotkey, name):show()
-        obj:setMuted(false)
+        obj:setInputMuted(false)
     end
 
     winHotkeyModal:bind(
