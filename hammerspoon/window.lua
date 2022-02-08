@@ -34,7 +34,7 @@ function resizeWindow(f)
         newFrame.h = 0
         newFrame.y = frame.y
     end
-    win:setFrame(newFrame)
+    win:setFrame(newFrame, 0.0)
 end
 
 function windowHeightMax()
@@ -43,7 +43,7 @@ function windowHeightMax()
     local frame = win:frame()
     frame.y = 0
     frame.h = f.h
-    win:setFrame(frame)
+    win:setFrame(frame, 0.0)
 end
 
 function windowWidthMax()
@@ -52,7 +52,7 @@ function windowWidthMax()
     local frame = win:frame()
     frame.x = 0
     frame.w = f.w
-    win:setFrame(frame)
+    win:setFrame(frame, 0.0)
 end
 
 function resizeWindowWider()
@@ -114,7 +114,7 @@ function resize(x, y, w, h)
     f.y = yy
     f.w = ww
     f.h = hh
-    return win:setFrame(f)
+    return win:setFrame(f, 0.0)
 end
 
 function fullscreen()
@@ -130,7 +130,7 @@ function fullscreen()
     end
     f.y = max.y
     f.h = max.h
-    win:setFrame(f)
+    win:setFrame(f, 0.0)
 end
 
 function center()
@@ -139,7 +139,7 @@ function center()
     local max = win:screen():frame()
     f.x = (max.w - max.x - f.w) / 2
     f.y = (max.h - max.y - f.h) / 2
-    win:setFrame(f)
+    win:setFrame(f, 0.0)
 end
 
 local magicRatio = 0.618
@@ -151,7 +151,7 @@ function golden()
     f.h = max.h * magicRatio
     f.x = (max.w - max.x - f.w) / 2
     f.y = (max.h - max.y - f.h) / 2
-    win:setFrame(f)
+    win:setFrame(f, 0.0)
 end
 
 ischatmode = false
@@ -167,7 +167,7 @@ function chatmode()
         f.y = max.y
         f.w = CHAT_MODE_WIDTH
         f.h = max.h
-        win:setFrame(f)
+        win:setFrame(f, 0.0)
     else
         hs.alert.show("disable chat mode")
     end
@@ -200,10 +200,27 @@ hs.hotkey.bind(hyper, "g", golden)
 -----------------------------------------------
 -- hyper p, n for move between monitors
 -----------------------------------------------
-hs.hotkey.bind(hyper, "p",
-               function() hs.window.focusedWindow():moveOneScreenEast(0) end)
-hs.hotkey.bind(hyper, "n",
-               function() hs.window.focusedWindow():moveOneScreenWest(0) end)
+function moveToScreen(delta)
+    local screens = hs.screen.allScreens()
+    local count = #screens
+    if count <= 1 then
+        return
+    end
+    local focusedWindow = hs.window.focusedWindow()
+    local currentScreen = focusedWindow:screen()
+    local index = 0
+    for _, screen in pairs(screens) do
+        if currentScreen == screen then
+            index = _
+            break
+        end
+    end
+    local nextIndex = math.fmod(index + delta + count, count)
+    hs.window.focusedWindow():moveToScreen(screens[nextIndex], true, true, 0)
+end
+
+-- hs.hotkey.bind(hyper, "p", function() moveToScreen(1) end)
+-- hs.hotkey.bind(hyper, "n", function() moveToScreen(-1) end)
 
 -----------------------------------------------
 -- hyper 1, 2 for diagonal quarter window
