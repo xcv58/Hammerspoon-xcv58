@@ -15,7 +15,11 @@ local editorAndIDEs = {
         "com.jetbrains.intellij", "Xcode"
     }
 }
-local emails = {{"Kiwi for Gmail", "Mailplane 3"}}
+local emails = {{
+    "Kiwi for Gmail",
+    "Gmail",
+    "Google Calendar"
+}}
 local chats = {{"Slack", "WeChat", "Telegram", "Messages", "FaceTime", "Quip"}}
 local tweets = {{"Tweetbot"}}
 local terminals = {{"iTerm2", "iTerm.app"}}
