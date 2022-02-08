@@ -20,7 +20,7 @@ local emails = {{
     "Gmail",
     "Google Calendar"
 }}
-local chats = {{"Slack", "WeChat", "Telegram", "Messages", "FaceTime", "Quip"}}
+local chats = {{"Slack", "WeChat", "Telegram", "Messages", "FaceTime", "Quip", "zoom.us"}}
 local tweets = {{"Tweetbot"}}
 local terminals = {{"iTerm2", "iTerm.app"}}
 local reminders = {{"Reminders", "Quip"}}
