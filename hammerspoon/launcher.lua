@@ -1,4 +1,4 @@
-local logger = hs.logger.new('Luncher')
+local logger = hs.logger.new('Launcher')
 
 local hyper = {"cmd", "shift"}
 

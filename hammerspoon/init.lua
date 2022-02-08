@@ -1,6 +1,6 @@
 require "utils"
 require "window"
-require "luncher"
+require "launcher"
 require "control"
 require "timer"
 require "events"
