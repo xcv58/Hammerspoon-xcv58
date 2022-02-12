@@ -34,7 +34,7 @@ function resizeWindow(f)
         newFrame.h = 0
         newFrame.y = frame.y
     end
-    win:setFrame(newFrame, 0.0)
+    win:setFrame(newFrame, 0.1)
 end
 
 function windowHeightMax()
@@ -43,7 +43,7 @@ function windowHeightMax()
     local frame = win:frame()
     frame.y = 0
     frame.h = f.h
-    win:setFrame(frame, 0.0)
+    win:setFrame(frame, 0.1)
 end
 
 function windowWidthMax()
@@ -52,7 +52,7 @@ function windowWidthMax()
     local frame = win:frame()
     frame.x = 0
     frame.w = f.w
-    win:setFrame(frame, 0.0)
+    win:setFrame(frame, 0.1)
 end
 
 function resizeWindowWider()
@@ -114,7 +114,7 @@ function resize(x, y, w, h)
     f.y = yy
     f.w = ww
     f.h = hh
-    return win:setFrame(f, 0.0)
+    return win:setFrame(f, 0.1)
 end
 
 function fullscreen()
@@ -130,7 +130,7 @@ function fullscreen()
     end
     f.y = max.y
     f.h = max.h
-    win:setFrame(f, 0.0)
+    win:setFrame(f, 0.1)
 end
 
 function center()
@@ -139,7 +139,7 @@ function center()
     local max = win:screen():frame()
     f.x = (max.w - max.x - f.w) / 2
     f.y = (max.h - max.y - f.h) / 2
-    win:setFrame(f, 0.0)
+    win:setFrame(f, 0.1)
 end
 
 local magicRatio = 0.618
@@ -151,7 +151,7 @@ function golden()
     f.h = max.h * magicRatio
     f.x = (max.w - max.x - f.w) / 2
     f.y = (max.h - max.y - f.h) / 2
-    win:setFrame(f, 0.0)
+    win:setFrame(f, 0.1)
 end
 
 ischatmode = false
@@ -167,7 +167,7 @@ function chatmode()
         f.y = max.y
         f.w = CHAT_MODE_WIDTH
         f.h = max.h
-        win:setFrame(f, 0.0)
+        win:setFrame(f, 0.1)
     else
         hs.alert.show("disable chat mode")
     end
