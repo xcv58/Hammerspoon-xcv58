@@ -16,9 +16,9 @@ local editorAndIDEs = {
     }
 }
 local emails = {{
-    "Kiwi for Gmail",
     "Gmail",
-    "Google Calendar"
+    "Google Calendar",
+    "Kiwi for Gmail"
 }}
 local chats = {{"Slack", "WeChat", "Telegram", "Messages", "FaceTime", "Quip"}}
 local tweets = {{"Tweetbot"}}
