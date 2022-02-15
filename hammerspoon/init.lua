@@ -1,5 +1,5 @@
 require "utils"
-require "window"
+-- require "window"
 require "launcher"
 require "control"
 require "timer"
