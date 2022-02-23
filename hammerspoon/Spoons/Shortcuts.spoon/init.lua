@@ -18,14 +18,13 @@ local logger = obj.logger
 local hyper = {"⌘", "⌃"}
 
 local function clickShortcutsItem(item)
-  local script = [[
+  local script = string.format([[
     set timeoutSeconds to 2.0
     set uiScript to "click menu bar item \"Shortcuts\" of menu bar 1 of application process \"Control Center\""
     my doWithTimeout(uiScript, timeoutSeconds)
 
     set timeoutSeconds to 2.0
-    set uiScript to "click checkbox \"]] .. item ..
-                     [[\" of window \"Control Center\" of application process \"Control Center\""
+    set uiScript to "click checkbox \"%s\" of window \"Control Center\" of application process \"Control Center\""
     my doWithTimeout(uiScript, timeoutSeconds)
 
     on doWithTimeout(uiScript, timeoutSeconds)
@@ -43,7 +42,7 @@ local function clickShortcutsItem(item)
         end try
       end repeat
     end doWithTimeout
-  ]]
+  ]], item)
   hs.osascript.applescript(script)
 end
 
