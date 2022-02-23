@@ -17,6 +17,34 @@ local logger = obj.logger
 -- local hyper = {"⌘", "⌃", "⇧"}
 local hyper = {"⌘", "⌃"}
 
+local doWithTimeOut = [[
+  on doWithTimeout(uiScript, timeoutSeconds)
+    set endDate to (current date) + timeoutSeconds
+    repeat
+      try
+        run script "tell application \"System Events\"
+  " & uiScript & "
+  end tell"
+        exit repeat
+      on error errorMessage
+        if ((current date) > endDate) then
+          error "Can not " & uiScript
+        end if
+      end try
+    end repeat
+  end doWithTimeout
+]]
+
+local function clickSoundIcon()
+  local script = string.format([[
+    set timeoutSeconds to 2.0
+    set uiScript to "click menu bar item \"Sound\" of menu bar 1 of application process \"Control Center\""
+    my doWithTimeout(uiScript, timeoutSeconds)
+    %s
+  ]], doWithTimeOut)
+  hs.osascript.applescript(script)
+end
+
 local function clickShortcutsItem(item)
   local script = string.format([[
     set timeoutSeconds to 2.0
@@ -26,23 +54,8 @@ local function clickShortcutsItem(item)
     set timeoutSeconds to 2.0
     set uiScript to "click checkbox \"%s\" of window \"Control Center\" of application process \"Control Center\""
     my doWithTimeout(uiScript, timeoutSeconds)
-
-    on doWithTimeout(uiScript, timeoutSeconds)
-      set endDate to (current date) + timeoutSeconds
-      repeat
-        try
-          run script "tell application \"System Events\"
-    " & uiScript & "
-    end tell"
-          exit repeat
-        on error errorMessage
-          if ((current date) > endDate) then
-            error "Can not " & uiScript
-          end if
-        end try
-      end repeat
-    end doWithTimeout
-  ]], item)
+    %s
+  ]], item, doWithTimeOut)
   hs.osascript.applescript(script)
 end
 
@@ -58,6 +71,7 @@ end
 
 hs.hotkey.bind(hyper, "m", turnOnMeeting)
 hs.hotkey.bind(hyper, "n", turnOfMeeting)
+hs.hotkey.bind(hyper, "x", clickSoundIcon)
 
 --- Shortcuts:init()
 --- Method
