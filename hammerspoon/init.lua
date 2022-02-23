@@ -17,15 +17,14 @@ hs.loadSpoon("ModalMgr")
 
 -- Define default Spoons which will be loaded later
 if not hspoon_list then
-    hspoon_list = {
-        "Calendar",
-        "Windows"
-        -- "CircleClock",
-    }
+  hspoon_list = {"Calendar", "Shortcuts", "Windows" -- "CircleClock",
+  }
 end
 
 -- Load those Spoons
-for _, v in pairs(hspoon_list) do hs.loadSpoon(v) end
+for _, v in pairs(hspoon_list) do
+  hs.loadSpoon(v)
+end
 
 hs.loadSpoon("Microphone"):bindHotKeys()
 
@@ -40,12 +39,8 @@ local vim = VimMode:new()
 -- Configure apps you do *not* want Vim mode enabled in
 -- For example, you don't want this plugin overriding your control of Terminal
 -- vim
-vim
-  :disableForApp('Code')
-  :disableForApp('zoom.us')
-  :disableForApp('iTerm')
-  :disableForApp('iTerm2')
-  :disableForApp('Terminal')
+vim:disableForApp('Code'):disableForApp('zoom.us'):disableForApp('iTerm'):disableForApp('iTerm2'):disableForApp(
+    'Terminal')
 
 -- If you want the screen to dim (a la Flux) when you enter normal mode
 -- flip this to true.
