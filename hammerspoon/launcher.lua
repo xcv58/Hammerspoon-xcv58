@@ -12,7 +12,7 @@ local editorAndIDEs = {
     {
         "com.microsoft.VSCode", "Visual Studio Code", "com.github.atom",
         "org.vim.MacVim", "org.gnu.Emacs", "com.jetbrains.intellij.ce",
-        "com.jetbrains.intellij", "Xcode"
+        "com.jetbrains.intellij", "Xcode", "Postman"
     }
 }
 local emails = {{
