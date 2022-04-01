@@ -43,7 +43,7 @@ module.clickButton = function(findButton)
     button:performAction('AXPress')
   end)
 
-  hs.timer.doAfter(2, function()
+  hs.timer.doAfter(5, function()
     -- Prevent infinite spinning
     buttonTimer:stop()
   end)
