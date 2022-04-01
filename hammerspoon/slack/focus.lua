@@ -91,17 +91,15 @@ module.leaveChannel = function()
   local window = getAxSlackWindow()
   if not window then return end
 
-  local button = find.searchByChain(window, {
-    function(elem) return hasClass(elem, 'p-workspace-layout') end,
-    function(elem)
-      return elem:attributeValue('AXRole') == 'AXPopUpButton' and
-        hasClass(elem, 'p-view_header__big_button--channel')
-    end,
-  })
-
-  if not button then return end
-
-  button:performAction('AXPress')
+  find.clickButton(function()
+    return find.searchByChain(window, {
+      function(elem) return hasClass(elem, 'p-workspace-layout') end,
+      function(elem)
+        return elem:attributeValue('AXRole') == 'AXPopUpButton' and
+          hasClass(elem, 'p-view_header__big_button--channel')
+      end,
+    })
+  end)
 
   find.clickButton(function()
     return find.searchByChain(window, {
