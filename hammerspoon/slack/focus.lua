@@ -117,7 +117,7 @@ module.leaveChannel = function()
   end)
 end
 
-module.setStatus = function()
+module.setLunch = function()
   local window = getAxSlackWindow()
   if not window then return end
 
