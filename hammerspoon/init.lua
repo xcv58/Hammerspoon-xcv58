@@ -4,6 +4,7 @@ require "launcher"
 require "control"
 require "timer"
 require "events"
+require "slack"
 
 local docs = require('GoogleDocsCodePaste')
 
