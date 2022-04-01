@@ -152,14 +152,6 @@ module.setLunch = function()
   find.clickButton(function()
     return find.searchByChain(window, {
       function(elem)
-        return hasClass(elem, 'c-input_checkbox--focus-visible')
-      end,
-    })
-  end)
-
-  find.clickButton(function()
-    return find.searchByChain(window, {
-      function(elem)
         return hasClass(elem, 'c-button--primary')
       end,
     })
