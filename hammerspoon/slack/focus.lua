@@ -136,6 +136,14 @@ module.setLunch = function()
   end)
 
   find.clickButton(function()
+    return find.searchByChain(window, {
+      function(elem)
+        return hasClass(elem, 'inline_flex')
+      end,
+    })
+  end)
+
+  find.clickButton(function()
     local i = 0
     return find.searchByChain(window, {
       function(elem)
