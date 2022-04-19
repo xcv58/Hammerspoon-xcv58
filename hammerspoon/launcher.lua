@@ -26,7 +26,7 @@ local reminders = {{"Reminders", "Quip"}}
 local debuggers = {{"com.postmanlabs.mac"}}
 
 hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
-hs.hotkey.bind(hyper, "a", function() toggleApps(emails) end)
+hs.hotkey.bind(hyper, "a", function() toggleAndOpenApps(emails) end)
 hs.hotkey.bind(hyper, "x", function() toggleApps(editorAndIDEs) end)
 hs.hotkey.bind(hyper, "w", function() toggleApps(chats) end)
 -- hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
@@ -112,6 +112,23 @@ function table_to_string(tbl)
         result = result:sub(1, result:len()-1)
     end
     return result.."}"
+end
+
+function toggleAndOpenApps(appList)
+    logger.d("toggleAndOpenApps, appList: " .. table_to_string(appList))
+    local appNames = getAppNames(appList)
+
+    for _, app in pairs(appNames) do
+        appObj = hs.application.get(app)
+        if not appObj then
+            local result = hs.application.launchOrFocus(app)
+            if result then
+                hs.alert.show("Open " .. app)
+            return setLastUsedApp(appList, app)
+            end
+        end
+    end
+    return toggleApps(appList)
 end
 
 function toggleApps(appList)
