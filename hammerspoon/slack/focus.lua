@@ -149,7 +149,7 @@ module.setLunch = function()
       function(elem)
         if hasClass(elem, 'p-custom_status_modal__preset') then
           i = i + 1
-          return i == 2
+          return i == 1
         end
       end,
     })
