@@ -73,4 +73,9 @@ hs.hotkey.bind(hyper, "h", function() setMuted(true) end)
 
 hs.hotkey.bind(hyper, "g", function() setMuted(false) end)
 
-hs.hotkey.bind(hyper, "l", function() hs.caffeinate.systemSleep() end)
+hs.hotkey.bind(hyper, "l", function()
+    timer = hs.timer.delayed.new(0.5, function()
+        hs.caffeinate.systemSleep()
+    end)
+    timer:start()
+end)
