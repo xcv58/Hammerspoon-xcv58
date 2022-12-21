@@ -37,7 +37,11 @@ local doWithTimeOut = [[
 
 local function clickSoundIcon()
   local script = string.format([[
-    tell application "System Events" to click menu bar item 5 of menu bar 1 of process "Control Center"
+    tell application "System Events" to tell process "Control Center" to click (menu bar item 5) of menu bar 1
+delay 0.5
+tell application "System Events" to tell process "Control Center" to tell its window "Control Center"
+	click checkbox 4 of scroll area 1 of group 1
+end tell
   ]])
   hs.osascript.applescript(script)
 end
