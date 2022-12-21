@@ -40,8 +40,6 @@ local function clickSoundIcon()
     tell application "System Events" to tell process "Control Center"
 	set i to 1
 	repeat with anElement in menu bar items of menu bar 1
-		set n to description of anElement
-		log n
 		if description of anElement is "Sound" then
 			exit repeat
 		end if
@@ -50,8 +48,17 @@ local function clickSoundIcon()
 	click (menu bar item i) of menu bar 1
 end tell
 delay 0.5
-tell application "System Events" to tell process "Control Center" to tell its window "Control Center"
-	click checkbox 4 of scroll area 1 of group 1
+
+tell application "System Events" to tell process "Control Center"
+	set i to 1
+	repeat with anElement in checkbox of scroll area 1 of group 1 of window 1
+		set identifier to value of attribute "AXIdentifier" of anElement
+		if identifier contains "AirPods 2021" then
+			exit repeat
+		end if
+		set i to i + 1
+	end repeat
+	tell its window "Control Center" to click checkbox i of scroll area 1 of group 1
 end tell
   ]])
   hs.osascript.applescript(script)
