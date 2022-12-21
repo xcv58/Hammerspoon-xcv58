@@ -37,7 +37,18 @@ local doWithTimeOut = [[
 
 local function clickSoundIcon()
   local script = string.format([[
-    tell application "System Events" to tell process "Control Center" to click (menu bar item 5) of menu bar 1
+    tell application "System Events" to tell process "Control Center"
+	set i to 1
+	repeat with anElement in menu bar items of menu bar 1
+		set n to description of anElement
+		log n
+		if description of anElement is "Sound" then
+			exit repeat
+		end if
+		set i to i + 1
+	end repeat
+	click (menu bar item i) of menu bar 1
+end tell
 delay 0.5
 tell application "System Events" to tell process "Control Center" to tell its window "Control Center"
 	click checkbox 4 of scroll area 1 of group 1
