@@ -27,6 +27,7 @@ local debuggers = {{"com.postmanlabs.mac"}}
 
 hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
 hs.hotkey.bind(hyper, "a", function() toggleAndOpenApps(emails) end)
+hs.hotkey.bind(hyper, "l", function() toggleAndOpenApps({{"ChatGPT"}}) end)
 hs.hotkey.bind(hyper, "x", function() toggleApps(editorAndIDEs) end)
 hs.hotkey.bind(hyper, "w", function() toggleApps(chats) end)
 -- hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
