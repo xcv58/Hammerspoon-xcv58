@@ -40,10 +40,11 @@ local canvas = nil
 local normalColor = {alpha = 0.8964, white = 1}
 local highlightColor = {alpha = 0.8964, red = 1}
 
+hs.application.enableSpotlightForNameSearches(true)
+
 local function showIndicator(appNames, index)
     if canvas then
         canvas:hide(0)
-        canvas:delete(0)
         canvas = nil
     end
     local frame = hs.screen.mainScreen():fullFrame()
