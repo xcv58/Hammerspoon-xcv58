@@ -35,3 +35,5 @@ end
 hs.loadSpoon("Microphone"):bindHotKeys()
 
 hs.ipc.cliInstall()
+
+hs.logger.setGlobalLogLevel('debug')

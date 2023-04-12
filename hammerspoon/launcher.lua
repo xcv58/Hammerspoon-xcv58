@@ -25,13 +25,25 @@ local terminals = {{"iTerm2", "iTerm.app"}}
 local reminders = {{"Reminders", "Quip"}}
 local debuggers = {{"com.postmanlabs.mac"}}
 
-hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
-hs.hotkey.bind(hyper, "a", function() toggleAndOpenApps(emails) end)
-hs.hotkey.bind(hyper, "l", function() toggleAndOpenApps({{"ChatGPT"}}) end)
-hs.hotkey.bind(hyper, "x", function() toggleApps(editorAndIDEs) end)
-hs.hotkey.bind(hyper, "w", function() toggleApps(chats) end)
+-- hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
+hs.hotkey.bind(hyper, "a", function()
+    logger.d("toggleAndOpenApps a")
+    toggleAndOpenApps(emails)
+end)
+hs.hotkey.bind(hyper, "l", function()
+    logger.d("toggleAndOpenApps l")
+    toggleAndOpenApps({{"ChatGPT"}})
+end)
+hs.hotkey.bind(hyper, "x", function()
+    logger.d("toggleAndOpenApps x")
+    toggleApps(editorAndIDEs)
+end)
+hs.hotkey.bind(hyper, "w", function()
+    logger.d("toggleAndOpenApps w")
+    toggleApps(chats)
+end)
 -- hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
-hs.hotkey.bind(hyper, "j", function() toggleApps(terminals) end)
+-- hs.hotkey.bind(hyper, "j", function() toggleApps(terminals) end)
 
 -- hs.hotkey.bind(hyper, "k", function() toggleApps(debuggers) end)
 -- hs.hotkey.bind(hyper, "r", function() toggleApps(reminders) end)
@@ -81,7 +93,7 @@ local function showIndicator(appNames, index)
         })
     end
     canvas:show()
-    canvas:hide(1)
+    canvas:hide(0.64)
     return canvas
 end
 
@@ -143,7 +155,7 @@ function toggleApps(appList)
 
     local appMap, nameArray, totalCount = filterOpenApps(appNames)
 
-    if totalCount == 0 then return openFirstApp(appNames) end
+    if totalCount == 0 then return openFirstApp(appNames, appList) end
 
     local foundLastUsed, index = false, 1
 
@@ -206,7 +218,7 @@ function filterOpenApps(apps)
     return map, names, #names
 end
 
-function openFirstApp(apps)
+function openFirstApp(apps, appList)
     for _, app in pairs(apps) do
         local result = hs.application.launchOrFocus(app)
         if result then
