@@ -32,7 +32,7 @@ for _, v in pairs(hspoon_list) do
   hs.loadSpoon(v)
 end
 
-hs.loadSpoon("Microphone"):bindHotKeys()
+-- hs.loadSpoon("Microphone"):bindHotKeys()
 
 hs.ipc.cliInstall()
 
