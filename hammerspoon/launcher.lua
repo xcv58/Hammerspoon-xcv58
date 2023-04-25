@@ -34,10 +34,10 @@ hs.hotkey.bind(hyper, "l", function()
     logger.d("toggleAndOpenApps l")
     toggleAndOpenApps({{"ChatGPT"}})
 end)
-hs.hotkey.bind(hyper, "x", function()
-    logger.d("toggleAndOpenApps x")
-    toggleApps(editorAndIDEs)
-end)
+-- hs.hotkey.bind(hyper, "x", function()
+--     logger.d("toggleAndOpenApps x")
+--     toggleApps(editorAndIDEs)
+-- end)
 hs.hotkey.bind(hyper, "w", function()
     logger.d("toggleAndOpenApps w")
     toggleApps(chats)
@@ -133,6 +133,7 @@ function toggleAndOpenApps(appList)
     local appNames = getAppNames(appList)
 
     for _, app in pairs(appNames) do
+        logger.d("read app status: " .. app)
         appObj = hs.application.get(app)
         if not appObj then
             local result = hs.application.launchOrFocus(app)
@@ -153,7 +154,9 @@ function toggleApps(appList)
         logger.d("lastUsedApp: " .. lastUsedApp)
     end
 
+    logger.d("filterOpenApps start")
     local appMap, nameArray, totalCount = filterOpenApps(appNames)
+    logger.d("filterOpenApps done")
 
     if totalCount == 0 then return openFirstApp(appNames, appList) end
 
