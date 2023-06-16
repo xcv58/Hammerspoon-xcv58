@@ -10,16 +10,14 @@ local browsers = {
 }
 local editorAndIDEs = {
     {
-        "com.microsoft.VSCode", "org.vim.MacVim",
-        "org.gnu.Emacs", "com.jetbrains.intellij.ce",
-        "com.jetbrains.intellij", "Xcode", "Postman"
+        "com.microsoft.VSCode", "org.vim.MacVim", "com.jetbrains.intellij.ce", "com.jetbrains.intellij"
     }
 }
 local emails = {{
     "Gmail",
     "Google Calendar"
 }}
-local chats = {{"Telegram", "Slack", "WhatsApp", "WeChat", "Messages", "FaceTime", "Quip"}}
+local chats = {{"Slack", "Messages"}}
 local tweets = {{"Tweetbot"}}
 local terminals = {{"iTerm2", "iTerm.app"}}
 local reminders = {{"Reminders", "Quip"}}
@@ -34,14 +32,14 @@ hs.hotkey.bind(hyper, "l", function()
     logger.d("toggleAndOpenApps l")
     toggleAndOpenApps({{"ChatGPT"}})
 end)
--- hs.hotkey.bind(hyper, "x", function()
---     logger.d("toggleAndOpenApps x")
---     toggleApps(editorAndIDEs)
--- end)
-hs.hotkey.bind(hyper, "w", function()
-    logger.d("toggleAndOpenApps w")
-    toggleApps(chats)
+hs.hotkey.bind(hyper, "x", function()
+    logger.d("toggleAndOpenApps x")
+    toggleApps(editorAndIDEs)
 end)
+-- hs.hotkey.bind(hyper, "w", function()
+--     logger.d("toggleAndOpenApps w")
+--     toggleApps(chats)
+-- end)
 -- hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
 -- hs.hotkey.bind(hyper, "j", function() toggleApps(terminals) end)
 
@@ -211,7 +209,9 @@ function filterOpenApps(apps)
     local map, names = {}, {}
 
     for _, app in pairs(apps) do
+        logger.d("filterOpenApps app " .. app)
         appObj = hs.application.get(app)
+        logger.d("filterOpenApps end " .. app)
         if appObj then
             map[app] = appObj
             names[#names + 1] = app
