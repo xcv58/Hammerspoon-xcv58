@@ -53,7 +53,7 @@ tell application "System Events" to tell process "Control Center"
 	set i to 1
 	repeat with anElement in checkbox of scroll area 1 of group 1 of window 1
 		set identifier to value of attribute "AXIdentifier" of anElement
-		if identifier contains "AirPods 2021" then
+		if identifier contains "AirPods Pro 2023 May" then
 			exit repeat
 		end if
 		set i to i + 1
