@@ -10,7 +10,7 @@ local browsers = {
 }
 local editorAndIDEs = {
     {
-        "com.microsoft.VSCode", "org.vim.MacVim", "com.jetbrains.intellij.ce", "com.jetbrains.intellij"
+        "com.microsoft.VSCode", "org.vim.MacVim", "com.jetbrains.intellij.ie", "com.jetbrains.intellij.ce", "com.jetbrains.intellij"
     }
 }
 local emails = {{
