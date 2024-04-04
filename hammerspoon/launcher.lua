@@ -4,8 +4,7 @@ local hyper = {"cmd", "shift"}
 
 local browsers = {
     {
-        "Google Chrome", "Google Chrome Dev", "Safari",
-        "com.google.Chrome.canary", "Firefox"
+        "Google Chrome", "Safari", "Firefox"
     }
 }
 local editorAndIDEs = {
@@ -17,29 +16,29 @@ local emails = {{
     "Gmail",
     "Google Calendar"
 }}
-local chats = {{"Slack", "Messages"}}
+local chats = {{"Telegram", "Slack", "Messages"}}
 local tweets = {{"Tweetbot"}}
 local terminals = {{"iTerm2", "iTerm.app"}}
 local reminders = {{"Reminders", "Quip"}}
 local debuggers = {{"com.postmanlabs.mac"}}
 
--- hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
+hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
 hs.hotkey.bind(hyper, "a", function()
-    logger.d("toggleAndOpenApps a")
+    -- logger.d("toggleAndOpenApps a")
     toggleAndOpenApps(emails)
 end)
 hs.hotkey.bind(hyper, "l", function()
-    logger.d("toggleAndOpenApps l")
+    -- logger.d("toggleAndOpenApps l")
     toggleAndOpenApps({{"ChatGPT"}})
 end)
 hs.hotkey.bind(hyper, "x", function()
-    logger.d("toggleAndOpenApps x")
+    -- logger.d("toggleAndOpenApps x")
     toggleApps(editorAndIDEs)
 end)
--- hs.hotkey.bind(hyper, "w", function()
---     logger.d("toggleAndOpenApps w")
---     toggleApps(chats)
--- end)
+hs.hotkey.bind(hyper, "w", function()
+    -- logger.d("toggleAndOpenApps w")
+    toggleApps(chats)
+end)
 -- hs.hotkey.bind(hyper, "o", function() toggleApps(tweets) end)
 -- hs.hotkey.bind(hyper, "j", function() toggleApps(terminals) end)
 
@@ -127,16 +126,16 @@ function table_to_string(tbl)
 end
 
 function toggleAndOpenApps(appList)
-    logger.d("toggleAndOpenApps, appList: " .. table_to_string(appList))
+    -- logger.d("toggleAndOpenApps, appList: " .. table_to_string(appList))
     local appNames = getAppNames(appList)
 
     for _, app in pairs(appNames) do
-        logger.d("read app status: " .. app)
+        -- logger.d("read app status: " .. app)
         appObj = hs.application.get(app)
         if not appObj then
             local result = hs.application.launchOrFocus(app)
             if result then
-                hs.alert.show("Open " .. app)
+                -- hs.alert.show("Open " .. app)
             return setLastUsedApp(appList, app)
             end
         end
@@ -145,16 +144,16 @@ function toggleAndOpenApps(appList)
 end
 
 function toggleApps(appList)
-    logger.d("toggleApps, appList: " .. table_to_string(appList))
+    -- logger.d("toggleApps, appList: " .. table_to_string(appList))
     local appNames = getAppNames(appList)
     local lastUsedApp = getLastUsedApp(appList)
     if lastUsedApp then
-        logger.d("lastUsedApp: " .. lastUsedApp)
+        -- logger.d("lastUsedApp: " .. lastUsedApp)
     end
 
-    logger.d("filterOpenApps start")
+    -- logger.d("filterOpenApps start")
     local appMap, nameArray, totalCount = filterOpenApps(appNames)
-    logger.d("filterOpenApps done")
+    -- logger.d("filterOpenApps done")
 
     if totalCount == 0 then return openFirstApp(appNames, appList) end
 
@@ -164,12 +163,12 @@ function toggleApps(appList)
         if lastUsedApp == appName then
             local appObj = appMap[appName]
             if appObj:isFrontmost() then
-                logger.d(appName .. "is frontmost")
+                -- logger.d(appName .. "is frontmost")
                 foundLastUsed = true
                 index = _
                 break
             else
-                logger.d(appName .. "is not frontmost, index: " .. _)
+                -- logger.d(appName .. "is not frontmost, index: " .. _)
                 return toggleNextApp(_ - 1, totalCount, nameArray, appMap, appList)
             end
         end
@@ -191,17 +190,17 @@ function toggleApps(appList)
 end
 
 function toggleNextApp(current, totalCount, nameArray, map, appList)
-    logger.d("toggleNextApp: " .. current .. " total: " .. totalCount)
+    -- logger.d("toggleNextApp: " .. current .. " total: " .. totalCount)
     local index = math.fmod(current, totalCount) + 1
     local appName = nameArray[index]
     local appObj = map[appName]
     setLastUsedApp(appList, appName)
-    logger.d("setLastUsedApp: " .. appName)
+    -- logger.d("setLastUsedApp: " .. appName)
     if appObj:isFrontmost() then
         appObj:hide()
     else
         appObj:activate()
-        showIndicator(nameArray, index)
+        -- showIndicator(nameArray, index)
     end
 end
 
@@ -209,9 +208,9 @@ function filterOpenApps(apps)
     local map, names = {}, {}
 
     for _, app in pairs(apps) do
-        logger.d("filterOpenApps app " .. app)
+        -- logger.d("filterOpenApps app " .. app)
         appObj = hs.application.get(app)
-        logger.d("filterOpenApps end " .. app)
+        -- logger.d("filterOpenApps end " .. app)
         if appObj then
             map[app] = appObj
             names[#names + 1] = app
@@ -225,9 +224,9 @@ function openFirstApp(apps, appList)
     for _, app in pairs(apps) do
         local result = hs.application.launchOrFocus(app)
         if result then
-            hs.alert.show("Open " .. app)
+            -- hs.alert.show("Open " .. app)
             return setLastUsedApp(appList, app)
         end
     end
-    return hs.alert.show("No app found in:\n" .. table.concat(apps, "\n"))
+    -- return hs.alert.show("No app found in:\n" .. table.concat(apps, "\n"))
 end
