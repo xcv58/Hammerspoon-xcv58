@@ -28,29 +28,4 @@ local function openSlackThread()
   end)
 end
 
-slackModal = hs.hotkey.modal.new()
-
-slackModal:bind({'ctrl'}, 'h', nil, focus.mainMessageBox, nil, focus.mainMessageBox)
-slackModal:bind({'ctrl'}, 'j', nil, slackDown, nil, slackDown)
-slackModal:bind({'ctrl'}, 'k', nil, slackUp, nil, slackUp)
-slackModal:bind({'ctrl'}, 'l', nil, focus.threadMessageBox, nil, focus.threadMessageBox)
-slackModal:bind({'ctrl'}, 'r', nil, startSlackReminder, nil, startSlackReminder)
-slackModal:bind({'ctrl'}, 't', nil, openSlackThread, nil, openSlackThread)
-slackModal:bind({'shift','cmd'}, 'delete', nil, focus.leaveChannel, nil, nil)
-slackModal:bind({'shift','ctrl'}, 'l', nil, focus.setLunch, nil, nil)
-
-slackWatcher = hs.application.watcher.new(function(applicationName, eventType)
-  if applicationName ~= "Slack" then return end
-
-  if eventType == hs.application.watcher.activated then
-    logger.i("slackModal:enter")
-    slackModal:enter()
-  elseif eventType == hs.application.watcher.deactivated then
-    logger.i("slackModal:exit")
-    slackModal:exit()
-  end
-end)
-
-slackWatcher:start()
-
 logger.i("Start")
