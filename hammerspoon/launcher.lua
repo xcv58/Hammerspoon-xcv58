@@ -12,9 +12,10 @@ local editorAndIDEs = {
         "com.microsoft.VSCode", "Cursor", "org.vim.MacVim", "com.jetbrains.intellij.ie", "com.jetbrains.intellij.ce", "com.jetbrains.intellij", "Xcode"
     }
 }
-local emails = {{
+local chromeApps = {{
     "Gmail",
-    "Google Calendar"
+    "Google Calendar",
+    "Gemini"
 }}
 local chats = {{"Telegram", "Slack", "Messages"}}
 local tweets = {{"Tweetbot"}}
@@ -25,7 +26,7 @@ local debuggers = {{"com.postmanlabs.mac"}}
 hs.hotkey.bind(hyper, "s", function() toggleApps(browsers) end)
 hs.hotkey.bind(hyper, "a", function()
     -- logger.d("toggleAndOpenApps a")
-    toggleAndOpenApps(emails)
+    toggleAndOpenApps(chromeApps)
 end)
 hs.hotkey.bind(hyper, "l", function()
     -- logger.d("toggleAndOpenApps l")
