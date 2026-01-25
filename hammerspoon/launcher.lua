@@ -9,13 +9,13 @@ local browsers = {
 }
 local editorAndIDEs = {
     {
-        "com.microsoft.VSCode", "Cursor", "org.vim.MacVim", "com.jetbrains.intellij.ie", "com.jetbrains.intellij.ce", "com.jetbrains.intellij", "Xcode"
+	    "Antigravity", "com.microsoft.VSCode", "Cursor", "org.vim.MacVim", "com.jetbrains.intellij.ie", "com.jetbrains.intellij.ce", "com.jetbrains.intellij", "Xcode"
     }
 }
 local chromeApps = {{
     "Gmail",
     "Google Calendar",
-    "Gemini"
+	"Gemini"
 }}
 local chats = {{"Telegram", "Slack", "Messages"}}
 local tweets = {{"Tweetbot"}}
