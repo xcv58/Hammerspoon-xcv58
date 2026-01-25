@@ -9,7 +9,7 @@ local browsers = {
 }
 local editorAndIDEs = {
     {
-	    "Antigravity", "com.microsoft.VSCode", "Cursor", "org.vim.MacVim", "com.jetbrains.intellij.ie", "com.jetbrains.intellij.ce", "com.jetbrains.intellij", "Xcode"
+	    "Antigravity", "com.microsoft.VSCode", "Cursor", "org.vim.MacVim", "Xcode"
     }
 }
 local chromeApps = {{
@@ -173,6 +173,7 @@ end)
 -- hs.hotkey.bind(hyper, "r", function() toggleApps(reminders) end)
 
 local canvas = nil
+local indicatorTimer = nil
 -- macOS-style colors
 local normalColor = {alpha = 0.9, white = 1}
 local highlightColor = {alpha = 1, white = 1}
@@ -313,8 +314,14 @@ local function showIndicator(appNames, index)
     canvas:show()
     canvas:alpha(1)
     
+    -- Cancel previous timer if it exists
+    if indicatorTimer then
+        indicatorTimer:stop()
+        indicatorTimer = nil
+    end
+
     -- Auto-hide after delay
-    hs.timer.doAfter(0.8, function()
+    indicatorTimer = hs.timer.doAfter(0.8, function()
         if canvas then
             canvas:hide(0.2)
             hs.timer.doAfter(0.2, function()
@@ -322,6 +329,7 @@ local function showIndicator(appNames, index)
                     canvas:delete()
                     canvas = nil
                 end
+                indicatorTimer = nil
             end)
         end
     end)
