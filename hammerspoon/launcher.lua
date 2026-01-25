@@ -174,6 +174,7 @@ end)
 
 local canvas = nil
 local indicatorTimer = nil
+local delayedShowTimer = nil
 -- macOS-style colors
 local normalColor = {alpha = 0.9, white = 1}
 local highlightColor = {alpha = 1, white = 1}
@@ -196,7 +197,7 @@ local function getAppIcon(appName)
     return nil
 end
 
-local function showIndicator(appNames, index)
+local function drawIndicator(appNames, index)
     if canvas then
         canvas:hide(0)
         canvas = nil
@@ -335,6 +336,35 @@ local function showIndicator(appNames, index)
     end)
     
     return canvas
+end
+
+local function showIndicator(appNames, index)
+    -- If already showing, update immediately
+    if canvas then
+        drawIndicator(appNames, index)
+        return
+    end
+
+    -- If there's a pending timer (meaning we hit the shortcut again quickly),
+    -- show immediately and cancel the timer
+    if delayedShowTimer then
+        delayedShowTimer:stop()
+        delayedShowTimer = nil
+        drawIndicator(appNames, index)
+        return
+    end
+
+    -- First hit: don't show immediately. Schedule a check.
+    -- If user releases keys quickly, this timer will fire but we won't show anything.
+    -- If user holds keys, we will show.
+    delayedShowTimer = hs.timer.doAfter(0.2, function()
+        delayedShowTimer = nil
+        -- Check if modifiers (cmd + shift) are properly held
+        local mods = hs.eventtap.checkKeyboardModifiers()
+        if mods["cmd"] and mods["shift"] then
+            drawIndicator(appNames, index)
+        end
+    end)
 end
 
 local function getAppNames(appList) return appList[1] end
