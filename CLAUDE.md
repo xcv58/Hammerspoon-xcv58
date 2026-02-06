@@ -23,7 +23,6 @@ hammerspoon/
     Calendar.spoon/     # Desktop calendar widget
     Shortcuts.spoon/    # macOS Shortcuts integration
     Windows.spoon/      # Mouse-driven window move/resize
-    GoogleDocsCodePaste.spoon/  # Syntax-highlighted paste (git submodule)
     ModalMgr.spoon/     # Available but not loaded
     CircleClock.spoon/  # Available but not loaded
     Microphone.spoon/   # Available but not loaded
@@ -37,7 +36,6 @@ hammerspoon/
   - `{"cmd", "ctrl", "shift"}` (3-key) in `window.lua`
   - `{"cmd", "ctrl"}` (2-key) in `control.lua`, `timer.lua`, `Shortcuts.spoon`
 - **Spoon convention**: Each Spoon lives in `Spoons/<Name>.spoon/init.lua`, returns a table with an `:init()` method
-- **GoogleDocsCodePaste** is a git submodule (has its own `.git`)
 
 ## Making Changes
 
@@ -53,3 +51,4 @@ hammerspoon/
 - `ModalMgr.spoon` is available but not loaded (commented out)
 - The `events.lua` module calls `setMuted()` from `control.lua` — `control.lua` must be loaded first
 - Lua files use a mix of `local` and global functions; prefer `local` for new code
+- **Always check whether `README.md` and `CLAUDE.md` need updates** when adding, removing, or changing modules, Spoons, or hotkeys

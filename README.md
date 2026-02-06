@@ -27,8 +27,6 @@ Personal [Hammerspoon](https://www.hammerspoon.org/) configuration with window m
 | `Calendar` | Desktop calendar widget (bottom-right corner) |
 | `Shortcuts` | macOS Shortcuts integration for meeting mode and audio device switching |
 | `Windows` | Mouse-driven window move (Ctrl+Alt+drag) and resize (Alt+Shift+drag) |
-| `GoogleDocsCodePaste` | Paste syntax-highlighted code into Google Docs via RTF |
-
 ## Hotkey Reference
 
 ### Window Management (`window.lua`)
@@ -100,12 +98,6 @@ Personal [Hammerspoon](https://www.hammerspoon.org/) configuration with window m
 | `Cmd+Ctrl + M` | Start meeting (macOS Shortcut) |
 | `Cmd+Ctrl + N` | Stop meeting (macOS Shortcut) |
 | `Cmd+Ctrl + X` | Switch to AirPods (Sound menu) |
-
-### Google Docs Code Paste
-
-| Hotkey | Action |
-|--------|--------|
-| `Cmd+Alt + V` | Paste clipboard as syntax-highlighted code into Google Docs |
 
 ### Windows Spoon (mouse-driven, no hotkeys)
 
