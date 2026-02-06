@@ -5,6 +5,11 @@ function tolerance(a, b) return math.abs(a - b) < 32 end
 
 local STEP = 10
 
+local function windowAlert(msg)
+    hs.alert.closeAll(0.2)
+    hs.alert.show(msg, nil, nil, 0.5)
+end
+
 function getStepX()
     local win = hs.window.focusedWindow()
     local f = win:screen():frame()
@@ -131,6 +136,7 @@ function fullscreen()
     f.y = max.y
     f.h = max.h
     win:setFrame(f, 0.1)
+    windowAlert("Fullscreen")
 end
 
 function center()
@@ -140,6 +146,7 @@ function center()
     f.x = (max.w - max.x - f.w) / 2
     f.y = (max.h - max.y - f.h) / 2
     win:setFrame(f, 0.1)
+    windowAlert("Center")
 end
 
 local magicRatio = 0.618
@@ -152,6 +159,7 @@ function golden()
     f.x = (max.w - max.x - f.w) / 2
     f.y = (max.h - max.y - f.h) / 2
     win:setFrame(f, 0.1)
+    windowAlert("Golden")
 end
 
 ischatmode = false
@@ -176,15 +184,15 @@ end
 -----------------------------------------------
 -- hyper h, j, k, l for left, down, up, right half window
 -----------------------------------------------
-function leftHalf() resize(0, 0, 2, 1) end
-function bottomHalf() resize(0, 1, 1, 2) end
-function topHalf() resize(0, 0, 1, 2) end
-function rightHalf() resize(1, 0, 2, 1) end
+function leftHalf() resize(0, 0, 2, 1) windowAlert("Left Half") end
+function bottomHalf() resize(0, 1, 1, 2) windowAlert("Bottom Half") end
+function topHalf() resize(0, 0, 1, 2) windowAlert("Top Half") end
+function rightHalf() resize(1, 0, 2, 1) windowAlert("Right Half") end
 hs.hotkey.bind(hyper, "h", leftHalf)
 hs.hotkey.bind(hyper, "j", bottomHalf)
 hs.hotkey.bind(hyper, "k", topHalf)
 hs.hotkey.bind(hyper, "l", rightHalf)
-hs.hotkey.bind(hyper, "m", function() resize(0, 0, 1, 1) end)
+hs.hotkey.bind(hyper, "m", function() resize(0, 0, 1, 1) windowAlert("Max") end)
 
 -- hyper ; for vertical fold window
 local lx = 2
@@ -192,6 +200,7 @@ local lw = 3
 hs.hotkey.bind(hyper, ";", function()
     resize(lx, 0, lw, 1)
     lx = (lx + 1) % lw
+    windowAlert("Thirds")
 end)
 
 -- hyper g for golden window
@@ -344,6 +353,7 @@ hs.hotkey.bind(hyper, "R", function()
     f.x = max.x + (max.w / 2) - (f.w / 2)
     f.y = max.y + (max.h / 2) - (f.h / 2)
     win:setFrame(f, 0)
+    windowAlert("1440x900")
   else
     hs.alert.show("No focused window found")
   end
