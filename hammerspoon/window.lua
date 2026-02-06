@@ -280,7 +280,7 @@ function getIndicator()
         text = "Escape to exit"
     })
 end
-local inidcator = nil
+local indicator = nil
 
 local winHotkeyModal = hs.hotkey.modal.new(hyper, "o")
 function winHotkeyModal:entered()

@@ -38,12 +38,12 @@ function changeVolume(direction)
 end
 
 function setVolume(n)
-    output = hs.audiodevice.defaultOutputDevice()
+    local output = hs.audiodevice.defaultOutputDevice()
 
     if output:muted() then setMuted(false) end
 
-    volume = output:outputVolume()
-    newVolume = volume + n
+    local volume = output:outputVolume()
+    local newVolume = volume + n
 
     output:setVolume(newVolume)
 
@@ -74,7 +74,7 @@ hs.hotkey.bind(hyper, "h", function() setMuted(true) end)
 hs.hotkey.bind(hyper, "g", function() setMuted(false) end)
 
 hs.hotkey.bind(hyper, "l", function()
-    timer = hs.timer.delayed.new(0.5, function()
+    local timer = hs.timer.delayed.new(0.5, function()
         hs.caffeinate.systemSleep()
     end)
     timer:start()

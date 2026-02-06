@@ -83,13 +83,13 @@ local function turnOnMeeting()
   clickShortcutsItem("Meeting")
 end
 
-local function turnOfMeeting()
-  logger.d('turnOfMeeting')
+local function turnOffMeeting()
+  logger.d('turnOffMeeting')
   clickShortcutsItem("Stop Meeting")
 end
 
 hs.hotkey.bind(hyper, "m", turnOnMeeting)
-hs.hotkey.bind(hyper, "n", turnOfMeeting)
+hs.hotkey.bind(hyper, "n", turnOffMeeting)
 hs.hotkey.bind(hyper, "x", clickSoundIcon)
 
 --- Shortcuts:init()
