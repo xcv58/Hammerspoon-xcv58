@@ -6,11 +6,6 @@ require "timer"
 require "events"
 require "slack"
 
-local docs = require('GoogleDocsCodePaste')
-
--- Bind this to whatever mods + key you want:
-hs.hotkey.bind({'cmd', 'alt'}, 'v', docs.pasteToGoogleDocs)
-
 hs.alert.defaultStyle.textSize = 64
 -----------------------------------------------
 -- Reload config on write
