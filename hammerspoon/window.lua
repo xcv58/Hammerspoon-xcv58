@@ -329,3 +329,22 @@ winHotkeyModal:bind("", "s", "", resizeWindowThinner, nil, resizeWindowThinner)
 winHotkeyModal:bind("", "d", "", resizeWindowWider, nil, resizeWindowWider)
 
 winHotkeyModal:bind("", "g", "", golden)
+
+-----------------------------------------------
+-- Cmd+Alt+Ctrl r to resize focused window to 1440x900 and center it
+-----------------------------------------------
+hs.hotkey.bind(hyper, "R", function()
+  local win = hs.window.focusedWindow()
+  if win then
+    local f = win:frame()
+    f.w = 1440
+    f.h = 900
+    local screen = win:screen()
+    local max = screen:frame()
+    f.x = max.x + (max.w / 2) - (f.w / 2)
+    f.y = max.y + (max.h / 2) - (f.h / 2)
+    win:setFrame(f, 0)
+  else
+    hs.alert.show("No focused window found")
+  end
+end)
