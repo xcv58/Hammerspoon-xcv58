@@ -6,8 +6,8 @@ function tolerance(a, b) return math.abs(a - b) < 32 end
 local STEP = 10
 
 local function windowAlert(msg)
-    hs.alert.closeAll(0.2)
-    hs.alert.show(msg, nil, nil, 0.5)
+    hs.alert.closeAll(0.1)
+    hs.alert.show(msg, 0.42)
 end
 
 function getStepX()
