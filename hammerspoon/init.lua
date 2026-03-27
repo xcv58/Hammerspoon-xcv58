@@ -5,6 +5,7 @@ require "control"
 require "timer"
 require "events"
 require "slack"
+require "chrome"
 
 hs.alert.defaultStyle.textSize = 64
 -----------------------------------------------
