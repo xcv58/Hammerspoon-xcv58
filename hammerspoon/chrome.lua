@@ -42,4 +42,21 @@ local function toggleSidebar()
     end
 end
 
-hs.hotkey.bind(hyper, "s", toggleSidebar)
+local sidebarHotkey = hs.hotkey.new(hyper, "s", toggleSidebar)
+
+local function handleAppEvent(_, event, app)
+    if event == hs.application.watcher.activated then
+        if app:bundleID() == "com.google.Chrome" then
+            sidebarHotkey:enable()
+        else
+            sidebarHotkey:disable()
+        end
+    end
+end
+
+local chromeWatcher = hs.application.watcher.new(handleAppEvent)
+chromeWatcher:start()
+
+if hs.application.frontmostApplication():bundleID() == "com.google.Chrome" then
+    sidebarHotkey:enable()
+end
