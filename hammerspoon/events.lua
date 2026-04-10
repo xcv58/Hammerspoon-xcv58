@@ -1,9 +1,11 @@
+local control = require "control"
+
 local function handler(type)
     if type == hs.caffeinate.watcher.screensDidLock then
-        return setMuted(true)
+        return control.setMuted(true)
     end
     if type == hs.caffeinate.watcher.screensDidUnlock then
-        return setMuted(false)
+        return control.setMuted(false)
     end
 end
 

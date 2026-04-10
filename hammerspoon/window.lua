@@ -1,11 +1,11 @@
 -- Set hyper to Cmd + Ctrl + Shift
-local hyper = {"⌘", "⌃", "⇧"}
+local hyper = {"cmd", "ctrl", "shift"}
 
-function tolerance(a, b) return math.abs(a - b) < 32 end
+local function tolerance(a, b) return math.abs(a - b) < 32 end
 
 local STEP = 10
-local local_ischatmode = false
-local local_CHAT_MODE_WIDTH = 0
+local ischatmode = false
+local chatModeWidth = 0
 
 local function windowAlert(msg)
     hs.alert.closeAll(0.1)
@@ -20,21 +20,21 @@ local function getFocusedWindow()
     return win
 end
 
-function getStepX()
+local function getStepX()
     local win = getFocusedWindow()
     if not win then return 0 end
     local f = win:screen():frame()
     return f.w / STEP
 end
 
-function getStepY()
+local function getStepY()
     local win = getFocusedWindow()
     if not win then return 0 end
     local f = win:screen():frame()
     return f.h / STEP
 end
 
-function resizeWindow(f)
+local function resizeWindow(f)
     local win = getFocusedWindow()
     if not win then return end
     local frame = win:frame()
@@ -55,7 +55,7 @@ function resizeWindow(f)
     win:setFrame(newFrame, 0.1)
 end
 
-function windowHeightMax()
+local function windowHeightMax()
     local win = getFocusedWindow()
     if not win then return end
     local f = win:screen():frame()
@@ -65,7 +65,7 @@ function windowHeightMax()
     win:setFrame(frame, 0.1)
 end
 
-function windowWidthMax()
+local function windowWidthMax()
     local win = getFocusedWindow()
     if not win then return end
     local f = win:screen():frame()
@@ -75,35 +75,35 @@ function windowWidthMax()
     win:setFrame(frame, 0.1)
 end
 
-function resizeWindowWider()
+local function resizeWindowWider()
     local delta = getStepX()
     resizeWindow({x = delta / -2, w = delta})
 end
 
-function resizeWindowTaller()
+local function resizeWindowTaller()
     local delta = getStepY()
     resizeWindow({y = delta / -2, h = delta})
 end
 
-function resizeWindowShorter()
+local function resizeWindowShorter()
     local delta = getStepX()
     resizeWindow({x = delta / 2, w = -delta})
 end
 
-function resizeWindowThinner()
+local function resizeWindowThinner()
     local delta = getStepY()
     resizeWindow({y = delta / 2, h = -delta})
 end
 
-function moveWindowLeft() resizeWindow({x = -getStepX()}) end
+local function moveWindowLeft() resizeWindow({x = -getStepX()}) end
 
-function moveWindowRight() resizeWindow({x = getStepX()}) end
+local function moveWindowRight() resizeWindow({x = getStepX()}) end
 
-function moveWindowTop() resizeWindow({y = -getStepY()}) end
+local function moveWindowTop() resizeWindow({y = -getStepY()}) end
 
-function moveWindowBottom() resizeWindow({y = getStepY()}) end
+local function moveWindowBottom() resizeWindow({y = getStepY()}) end
 
-function resize(x, y, w, h)
+local function resize(x, y, w, h)
     local win = getFocusedWindow()
     if not win then return end
     local f = win:frame()
@@ -113,9 +113,9 @@ function resize(x, y, w, h)
     local xx = max.x + (x * ww)
     local yy = max.y + (y * hh)
 
-    if local_ischatmode and x == 0 then
-        xx = xx + local_CHAT_MODE_WIDTH
-        ww = ww - local_CHAT_MODE_WIDTH
+    if ischatmode and x == 0 then
+        xx = xx + chatModeWidth
+        ww = ww - chatModeWidth
     end
 
     if tolerance(f.x, xx) and tolerance(f.y, yy) and tolerance(f.w, ww) and
@@ -137,14 +137,14 @@ function resize(x, y, w, h)
     return win:setFrame(f, 0.1)
 end
 
-function fullscreen()
+local function fullscreen()
     local win = getFocusedWindow()
     if not win then return end
     local f = win:frame()
     local max = win:screen():frame()
-    if local_ischatmode then
-        f.x = max.x + local_CHAT_MODE_WIDTH
-        f.w = max.w - local_CHAT_MODE_WIDTH
+    if ischatmode then
+        f.x = max.x + chatModeWidth
+        f.w = max.w - chatModeWidth
     else
         f.x = max.x
         f.w = max.w
@@ -155,7 +155,7 @@ function fullscreen()
     windowAlert("Fullscreen")
 end
 
-function center()
+local function center()
     local win = getFocusedWindow()
     if not win then return end
     local f = win:frame()
@@ -167,7 +167,7 @@ function center()
 end
 
 local magicRatio = 0.618
-function golden()
+local function golden()
     local win = getFocusedWindow()
     if not win then return end
     local f = win:frame()
@@ -180,18 +180,18 @@ function golden()
     windowAlert("Golden")
 end
 
-function chatmode()
-    local_ischatmode = not local_ischatmode
-    if local_ischatmode then
+local function chatmode()
+    ischatmode = not ischatmode
+    if ischatmode then
         hs.alert.show("enable chat mode")
         local win = getFocusedWindow()
         if not win then return end
         local f = win:frame()
         local max = win:screen():frame()
-        local_CHAT_MODE_WIDTH = max.w * 0.18
+        chatModeWidth = max.w * 0.18
         f.x = max.x
         f.y = max.y
-        f.w = local_CHAT_MODE_WIDTH
+        f.w = chatModeWidth
         f.h = max.h
         win:setFrame(f, 0.1)
     else
@@ -202,10 +202,10 @@ end
 -----------------------------------------------
 -- hyper h, j, k, l for left, down, up, right half window
 -----------------------------------------------
-function leftHalf() resize(0, 0, 2, 1) windowAlert("Left Half") end
-function bottomHalf() resize(0, 1, 1, 2) windowAlert("Bottom Half") end
-function topHalf() resize(0, 0, 1, 2) windowAlert("Top Half") end
-function rightHalf() resize(1, 0, 2, 1) windowAlert("Right Half") end
+local function leftHalf() resize(0, 0, 2, 1) windowAlert("Left Half") end
+local function bottomHalf() resize(0, 1, 1, 2) windowAlert("Bottom Half") end
+local function topHalf() resize(0, 0, 1, 2) windowAlert("Top Half") end
+local function rightHalf() resize(1, 0, 2, 1) windowAlert("Right Half") end
 hs.hotkey.bind(hyper, "h", leftHalf)
 hs.hotkey.bind(hyper, "j", bottomHalf)
 hs.hotkey.bind(hyper, "k", topHalf)
@@ -227,8 +227,8 @@ hs.hotkey.bind(hyper, "g", golden)
 -----------------------------------------------
 -- hyper 1, 2 for diagonal quarter window
 -----------------------------------------------
-function topLeftCorner() resize(0, 0, 2, 2) end
-function topRightCorner() resize(1, 0, 2, 2) end
+local function topLeftCorner() resize(0, 0, 2, 2) end
+local function topRightCorner() resize(1, 0, 2, 2) end
 hs.hotkey.bind(hyper, "1", topLeftCorner, nil, topLeftCorner)
 hs.hotkey.bind(hyper, "2", topRightCorner, nil, topRightCorner)
 
@@ -253,10 +253,10 @@ hs.hotkey.bind(hyper, "f", fullscreen)
 -----------------------------------------------
 -- CMD+Ctrl+f for fullscreen
 -----------------------------------------------
-hs.hotkey.bind({"⌘", "⌃"}, "f", fullscreen)
+hs.hotkey.bind({"cmd", "ctrl"}, "f", fullscreen)
 
 -- Set hotkey modal
-function getIndicator()
+local function getIndicator()
     local frame = hs.screen.mainScreen():fullFrame()
     local width = 600
     local height = 90
@@ -305,19 +305,19 @@ winHotkeyModal:bind("", "j", "", moveWindowBottom, nil, moveWindowBottom)
 winHotkeyModal:bind("", "k", "", moveWindowTop, nil, moveWindowTop)
 winHotkeyModal:bind("", "l", "", moveWindowRight, nil, moveWindowRight)
 
-winHotkeyModal:bind("⌃", "h", "", resizeWindowShorter, nil,
+winHotkeyModal:bind("ctrl", "h", "", resizeWindowShorter, nil,
                     resizeWindowShorter)
-winHotkeyModal:bind("⌃", "j", "", resizeWindowThinner, nil,
+winHotkeyModal:bind("ctrl", "j", "", resizeWindowThinner, nil,
                     resizeWindowThinner)
-winHotkeyModal:bind("⌃", "k", "", resizeWindowTaller, nil, resizeWindowTaller)
-winHotkeyModal:bind("⌃", "l", "", resizeWindowWider, nil, resizeWindowWider)
+winHotkeyModal:bind("ctrl", "k", "", resizeWindowTaller, nil, resizeWindowTaller)
+winHotkeyModal:bind("ctrl", "l", "", resizeWindowWider, nil, resizeWindowWider)
 
-winHotkeyModal:bind("⇧", "h", "", resizeWindowShorter, nil,
+winHotkeyModal:bind("shift", "h", "", resizeWindowShorter, nil,
                     resizeWindowShorter)
-winHotkeyModal:bind("⇧", "j", "", resizeWindowThinner, nil,
+winHotkeyModal:bind("shift", "j", "", resizeWindowThinner, nil,
                     resizeWindowThinner)
-winHotkeyModal:bind("⇧", "k", "", windowHeightMax)
-winHotkeyModal:bind("⇧", "l", "", windowWidthMax)
+winHotkeyModal:bind("shift", "k", "", windowHeightMax)
+winHotkeyModal:bind("shift", "l", "", windowWidthMax)
 
 winHotkeyModal:bind("", "c", "", center)
 winHotkeyModal:bind("", "f", "", fullscreen)

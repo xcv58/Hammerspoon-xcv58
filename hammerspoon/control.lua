@@ -5,6 +5,8 @@ local lastTime = -1
 local lastDirection = 0
 local gap = 1
 
+local setVolume, setMuted
+
 local function isRecentChange()
     local time = hs.timer.localTime()
     local res = time - lastTime < 8
@@ -33,7 +35,7 @@ local function changeVolume(direction)
     setVolume(direction * gap)
 end
 
-function setVolume(n)
+setVolume = function(n)
     local output = hs.audiodevice.defaultOutputDevice()
 
     if output:muted() then setMuted(false) end
@@ -47,7 +49,7 @@ function setVolume(n)
     hs.alert.show("Volume: " .. math.floor(output:outputVolume()))
 end
 
-function setMuted(mute)
+setMuted = function(mute)
     local output = hs.audiodevice.defaultOutputDevice()
     output:setMuted(mute)
     if mute then
@@ -77,3 +79,5 @@ hs.hotkey.bind(hyper, "l", function()
     hs.alert.show("Sleep...")
     sleepTimer:start()
 end)
+
+return { setMuted = setMuted, setVolume = setVolume }

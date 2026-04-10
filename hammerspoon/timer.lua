@@ -9,6 +9,8 @@ local caffeinateWatcher = nil
 
 local logger = hs.logger.new('Timer')
 
+local stopTimer, startTimer
+
 local function timerHandler()
     if timeTimer then
         stopTimer()
@@ -18,7 +20,7 @@ end
 
 local function updateTime(x) x.text = os.date("%H:%M:%S") end
 
-function stopTimer()
+stopTimer = function()
     if canvas then
         canvas:delete(fadeTime)
         canvas = nil
@@ -29,7 +31,7 @@ function stopTimer()
     end
 end
 
-function startTimer()
+startTimer = function()
     local screen = hs.screen.mainScreen()
     if not screen then return end
     local cres = screen:fullFrame()
@@ -77,7 +79,7 @@ function startTimer()
     end
 end
 
-function toggleTimer()
+local function toggleTimer()
     if canvas then
         stopTimer()
     else
