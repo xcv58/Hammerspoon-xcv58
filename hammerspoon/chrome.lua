@@ -1,6 +1,10 @@
 local hyper = {"cmd", "ctrl"}
 
 local function toggleSidebar()
+    if hs.application.frontmostApplication():bundleID() ~= "com.google.Chrome" then
+        return
+    end
+
     local chrome = hs.application.get("com.google.Chrome")
     if not chrome then
         hs.alert.show("Chrome not running")
@@ -60,3 +64,5 @@ chromeWatcher:start()
 if hs.application.frontmostApplication():bundleID() == "com.google.Chrome" then
     sidebarHotkey:enable()
 end
+
+return { watcher = chromeWatcher, hotkey = sidebarHotkey }
