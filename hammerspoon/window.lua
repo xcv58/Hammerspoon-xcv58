@@ -1,29 +1,42 @@
--- Set hyper to ⌘ + ⌃ + ⇧
+-- Set hyper to Cmd + Ctrl + Shift
 local hyper = {"⌘", "⌃", "⇧"}
 
 function tolerance(a, b) return math.abs(a - b) < 32 end
 
 local STEP = 10
+local local_ischatmode = false
+local local_CHAT_MODE_WIDTH = 0
 
 local function windowAlert(msg)
     hs.alert.closeAll(0.1)
     hs.alert.show(msg, 0.42)
 end
 
-function getStepX()
+local function getFocusedWindow()
     local win = hs.window.focusedWindow()
+    if not win then
+        hs.alert.show("No focused window")
+    end
+    return win
+end
+
+function getStepX()
+    local win = getFocusedWindow()
+    if not win then return 0 end
     local f = win:screen():frame()
     return f.w / STEP
 end
 
 function getStepY()
-    local win = hs.window.focusedWindow()
+    local win = getFocusedWindow()
+    if not win then return 0 end
     local f = win:screen():frame()
     return f.h / STEP
 end
 
 function resizeWindow(f)
-    local win = hs.window.focusedWindow()
+    local win = getFocusedWindow()
+    if not win then return end
     local frame = win:frame()
     local newFrame = {
         x = frame.x + (f.x or 0),
@@ -43,7 +56,8 @@ function resizeWindow(f)
 end
 
 function windowHeightMax()
-    local win = hs.window.focusedWindow()
+    local win = getFocusedWindow()
+    if not win then return end
     local f = win:screen():frame()
     local frame = win:frame()
     frame.y = 0
@@ -52,7 +66,8 @@ function windowHeightMax()
 end
 
 function windowWidthMax()
-    local win = hs.window.focusedWindow()
+    local win = getFocusedWindow()
+    if not win then return end
     local f = win:screen():frame()
     local frame = win:frame()
     frame.x = 0
@@ -88,9 +103,9 @@ function moveWindowTop() resizeWindow({y = -getStepY()}) end
 
 function moveWindowBottom() resizeWindow({y = getStepY()}) end
 
--- TODO: Add comments
 function resize(x, y, w, h)
-    local win = hs.window.focusedWindow()
+    local win = getFocusedWindow()
+    if not win then return end
     local f = win:frame()
     local max = win:screen():frame()
     local ww = max.w / w
@@ -98,9 +113,9 @@ function resize(x, y, w, h)
     local xx = max.x + (x * ww)
     local yy = max.y + (y * hh)
 
-    if ischatmode and x == 0 then
-        xx = xx + CHAT_MODE_WIDTH
-        ww = ww - CHAT_MODE_WIDTH
+    if local_ischatmode and x == 0 then
+        xx = xx + local_CHAT_MODE_WIDTH
+        ww = ww - local_CHAT_MODE_WIDTH
     end
 
     if tolerance(f.x, xx) and tolerance(f.y, yy) and tolerance(f.w, ww) and
@@ -123,12 +138,13 @@ function resize(x, y, w, h)
 end
 
 function fullscreen()
-    local win = hs.window.focusedWindow()
+    local win = getFocusedWindow()
+    if not win then return end
     local f = win:frame()
     local max = win:screen():frame()
-    if ischatmode then
-        f.x = max.x + CHAT_MODE_WIDTH
-        f.w = max.w - CHAT_MODE_WIDTH
+    if local_ischatmode then
+        f.x = max.x + local_CHAT_MODE_WIDTH
+        f.w = max.w - local_CHAT_MODE_WIDTH
     else
         f.x = max.x
         f.w = max.w
@@ -140,7 +156,8 @@ function fullscreen()
 end
 
 function center()
-    local win = hs.window.focusedWindow()
+    local win = getFocusedWindow()
+    if not win then return end
     local f = win:frame()
     local max = win:screen():frame()
     f.x = (max.w - max.x - f.w) / 2
@@ -151,7 +168,8 @@ end
 
 local magicRatio = 0.618
 function golden()
-    local win = hs.window.focusedWindow()
+    local win = getFocusedWindow()
+    if not win then return end
     local f = win:frame()
     local max = win:screen():frame()
     f.w = max.w * magicRatio
@@ -162,18 +180,18 @@ function golden()
     windowAlert("Golden")
 end
 
-ischatmode = false
 function chatmode()
-    ischatmode = not ischatmode
-    if ischatmode then
+    local_ischatmode = not local_ischatmode
+    if local_ischatmode then
         hs.alert.show("enable chat mode")
-        local win = hs.window.focusedWindow()
+        local win = getFocusedWindow()
+        if not win then return end
         local f = win:frame()
         local max = win:screen():frame()
-        CHAT_MODE_WIDTH = max.w * 0.18
+        local_CHAT_MODE_WIDTH = max.w * 0.18
         f.x = max.x
         f.y = max.y
-        f.w = CHAT_MODE_WIDTH
+        f.w = local_CHAT_MODE_WIDTH
         f.h = max.h
         win:setFrame(f, 0.1)
     else
@@ -207,31 +225,6 @@ end)
 hs.hotkey.bind(hyper, "g", golden)
 
 -----------------------------------------------
--- hyper p, n for move between monitors
------------------------------------------------
-function moveToScreen(delta)
-    local screens = hs.screen.allScreens()
-    local count = #screens
-    if count <= 1 then
-        return
-    end
-    local focusedWindow = hs.window.focusedWindow()
-    local currentScreen = focusedWindow:screen()
-    local index = 0
-    for _, screen in pairs(screens) do
-        if currentScreen == screen then
-            index = _
-            break
-        end
-    end
-    local nextIndex = math.fmod(index + delta + count, count)
-    hs.window.focusedWindow():moveToScreen(screens[nextIndex], true, true, 0)
-end
-
--- hs.hotkey.bind(hyper, "p", function() moveToScreen(1) end)
--- hs.hotkey.bind(hyper, "n", function() moveToScreen(-1) end)
-
------------------------------------------------
 -- hyper 1, 2 for diagonal quarter window
 -----------------------------------------------
 function topLeftCorner() resize(0, 0, 2, 2) end
@@ -246,9 +239,6 @@ hs.hotkey.bind(hyper, "i", function() hs.hints.windowHints() end)
 
 hs.hotkey.bind(hyper, "q", function() chatmode() end)
 
--- -----------------------------------------------
--- -- Hyper wsad to set window size
--- -----------------------------------------------
 hs.hotkey.bind(hyper, "w", resizeWindowTaller, nil, resizeWindowTaller)
 hs.hotkey.bind(hyper, "a", resizeWindowShorter, nil, resizeWindowShorter)
 hs.hotkey.bind(hyper, "s", resizeWindowThinner, nil, resizeWindowThinner)
@@ -343,8 +333,8 @@ winHotkeyModal:bind("", "g", "", golden)
 -- Cmd+Alt+Ctrl r to resize focused window to 1440x900 and center it
 -----------------------------------------------
 hs.hotkey.bind(hyper, "R", function()
-  local win = hs.window.focusedWindow()
-  if win then
+    local win = getFocusedWindow()
+    if not win then return end
     local f = win:frame()
     f.w = 1440
     f.h = 900
@@ -354,7 +344,4 @@ hs.hotkey.bind(hyper, "R", function()
     f.y = max.y + (max.h / 2) - (f.h / 2)
     win:setFrame(f, 0)
     windowAlert("1440x900")
-  else
-    hs.alert.show("No focused window found")
-  end
 end)

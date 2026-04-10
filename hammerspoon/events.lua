@@ -1,4 +1,4 @@
-function handler(type)
+local function handler(type)
     if type == hs.caffeinate.watcher.screensDidLock then
         return setMuted(true)
     end
@@ -7,4 +7,5 @@ function handler(type)
     end
 end
 
-hs.caffeinate.watcher.new(handler):start()
+local eventsWatcher = hs.caffeinate.watcher.new(handler)
+eventsWatcher:start()

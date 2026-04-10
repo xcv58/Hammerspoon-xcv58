@@ -1,14 +1,11 @@
 local hyper = {"cmd", "ctrl"}
 
-local timer = nil
-
 local canvas = nil
 local fadeTime = 0.5
 local timeTimer = nil
 
 local loaded = nil
-
-local screenIndex = 0
+local caffeinateWatcher = nil
 
 local logger = hs.logger.new('Timer')
 
@@ -32,21 +29,8 @@ function stopTimer()
     end
 end
 
-local function getScreen()
-    local allScreens = hs.screen.allScreens()
-    screenIndex = screenIndex + 1
-    local screen = allScreens[screenIndex]
-    logger.d("screenIndex: " .. tostring(screenIndex))
-    if not screen then
-        logger.d("reset screenIndex")
-        screenIndex = 1
-        return allScreens[screenIndex]
-    end
-    return screen
-end
-
 function startTimer()
-    local screen = getScreen()
+    local screen = hs.screen.mainScreen()
     if not screen then return end
     local cres = screen:fullFrame()
     local width = math.min(cres.w, cres.h) * 0.89
@@ -88,14 +72,13 @@ function startTimer()
 
     if not loaded then
         loaded = hs.screen.watcher.new(timerHandler):start()
-        hs.caffeinate.watcher.new(timerHandler):start()
+        caffeinateWatcher = hs.caffeinate.watcher.new(timerHandler)
+        caffeinateWatcher:start()
     end
 end
 
 function toggleTimer()
     if canvas then
-        canvas:delete(fadeTime)
-        canvas = nil
         stopTimer()
     else
         startTimer()
