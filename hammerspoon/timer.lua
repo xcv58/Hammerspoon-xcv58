@@ -6,7 +6,7 @@ local timeTimer = nil
 
 local loaded = nil
 local caffeinateWatcher = nil
-local screenIndex = 0
+local screenIndex = 1
 
 local logger = hs.logger.new('Timer')
 
