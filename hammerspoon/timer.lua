@@ -6,6 +6,7 @@ local timeTimer = nil
 
 local loaded = nil
 local caffeinateWatcher = nil
+local screenIndex = 0
 
 local logger = hs.logger.new('Timer')
 
@@ -14,7 +15,7 @@ local stopTimer, startTimer
 local function timerHandler()
     if timeTimer then
         stopTimer()
-        startTimer()
+        startTimer(hs.screen.mainScreen())
     end
 end
 
@@ -31,8 +32,19 @@ stopTimer = function()
     end
 end
 
-startTimer = function()
-    local screen = hs.screen.mainScreen()
+local function getNextScreen()
+    local allScreens = hs.screen.allScreens()
+    screenIndex = screenIndex + 1
+    local screen = allScreens[screenIndex]
+    if not screen then
+        screenIndex = 1
+        return allScreens[screenIndex]
+    end
+    return screen
+end
+
+startTimer = function(screen)
+    screen = screen or getNextScreen()
     if not screen then return end
     local cres = screen:fullFrame()
     local width = math.min(cres.w, cres.h) * 0.89
@@ -89,4 +101,4 @@ end
 
 hs.hotkey.bind(hyper, "t", toggleTimer)
 
-startTimer()
+startTimer(hs.screen.mainScreen())
