@@ -5,6 +5,10 @@ require "timer"
 require "events"
 require "chrome"
 
+-- Hold Control + Option to move the window under the cursor.
+hs.loadSpoon("Windows")
+spoon.Windows:init()
+
 hs.alert.defaultStyle.textSize = 64
 -----------------------------------------------
 -- Reload config on write

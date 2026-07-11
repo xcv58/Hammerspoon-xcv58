@@ -26,7 +26,7 @@ Personal [Hammerspoon](https://www.hammerspoon.org/) configuration with window m
 |-------|-------------|
 | `Calendar` | Desktop calendar widget (bottom-right corner) |
 | `Shortcuts` | macOS Shortcuts integration for meeting mode and audio device switching |
-| `Windows` | Mouse-driven window move (Ctrl+Alt+drag) and resize (Alt+Shift+drag) |
+| `Windows` | Mouse-driven window move (hold Ctrl+Option) and resize (hold Option+Shift) |
 ## Hotkey Reference
 
 ### Window Management (`window.lua`)
@@ -103,8 +103,8 @@ Personal [Hammerspoon](https://www.hammerspoon.org/) configuration with window m
 
 | Modifier | Action |
 |----------|--------|
-| `Ctrl + Alt` + mouse move | Move window under cursor |
-| `Alt + Shift` + mouse move | Resize window under cursor |
+| Hold `Ctrl + Option` and move the mouse | Move window under cursor |
+| Hold `Option + Shift` and move the mouse | Resize window under cursor |
 
 ## Auto-Behaviors
 

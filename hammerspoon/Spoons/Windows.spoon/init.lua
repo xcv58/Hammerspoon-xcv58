@@ -18,54 +18,74 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 obj.logger = hs.logger.new("Windows")
 local logger = obj.logger
 
-local function get_window_under_mouse()
+local function getWindowUnderMouse()
   -- Invoke `hs.application` because `hs.window.orderedWindows()` doesn't do it and breaks itself
   local _ = hs.application
 
-  local my_pos = hs.geometry.new(hs.mouse.absolutePosition())
-  local my_screen = hs.mouse.getCurrentScreen()
+  local mousePosition = hs.geometry.new(hs.mouse.absolutePosition())
 
   return hs.fnutils.find(hs.window.orderedWindows(), function(w)
-    return my_screen == w:screen() and my_pos:inside(w:frame())
+    return mousePosition:inside(w:frame())
   end)
 end
 
 local dragging_win = nil
 local dragging_mode = 1
+local drag_event
 
-local drag_event = hs.eventtap.new({hs.eventtap.event.types.mouseMoved}, function(e)
-  if dragging_win then
-    local dx = e:getProperty(hs.eventtap.event.properties.mouseEventDeltaX)
-    local dy = e:getProperty(hs.eventtap.event.properties.mouseEventDeltaY)
-    local mods = hs.eventtap.checkKeyboardModifiers()
+local function isDraggingWithCurrentModifiers(mods)
+  if dragging_mode == 1 then
+    return mods.ctrl and mods.alt
+  end
+  return mods.alt and mods.shift
+end
 
-    -- Ctrl + Alt to move the window under cursor
-    if dragging_mode == 1 and mods.ctrl and mods.alt then
-      -- Alt + Shift to resize the window under cursor
-      dragging_win:move({dx, dy}, nil, false, 0)
-    elseif mods.alt and mods.shift then
-      local sz = dragging_win:size()
-      local w1 = sz.w + dx
-      local h1 = sz.h + dy
-      dragging_win:setSize(w1, h1)
-    end
+local function stopDragging()
+  drag_event:stop()
+  dragging_win = nil
+end
+
+local function startDragging(mode)
+  dragging_win = getWindowUnderMouse()
+  if not dragging_win then return end
+
+  dragging_mode = mode
+  drag_event:start()
+end
+
+drag_event = hs.eventtap.new({hs.eventtap.event.types.mouseMoved}, function(e)
+  if not dragging_win then return nil end
+
+  local mods = hs.eventtap.checkKeyboardModifiers()
+  if not isDraggingWithCurrentModifiers(mods) then
+    stopDragging()
+    return nil
+  end
+
+  local dx = e:getProperty(hs.eventtap.event.properties.mouseEventDeltaX)
+  local dy = e:getProperty(hs.eventtap.event.properties.mouseEventDeltaY)
+  if dx == 0 and dy == 0 then return nil end
+
+  if dragging_mode == 1 then
+    dragging_win:move({dx, dy}, nil, false, 0)
+  else
+    local size = dragging_win:size()
+    dragging_win:setSize(size.w + dx, size.h + dy)
   end
   return nil
 end)
 
 local flags_event = hs.eventtap.new({hs.eventtap.event.types.flagsChanged}, function(e)
   local flags = e:getFlags()
-  if flags.ctrl and flags.alt and dragging_win == nil then
-    dragging_win = get_window_under_mouse()
-    dragging_mode = 1
-    drag_event:start()
-  elseif flags.alt and flags.shift and dragging_win == nil then
-    dragging_win = get_window_under_mouse()
-    dragging_mode = 2
-    drag_event:start()
-  else
-    drag_event:stop()
-    dragging_win = nil
+  if dragging_win then
+    if not isDraggingWithCurrentModifiers(flags) then stopDragging() end
+    return nil
+  end
+
+  if flags.ctrl and flags.alt then
+    startDragging(1)
+  elseif flags.alt and flags.shift then
+    startDragging(2)
   end
   return nil
 end)
@@ -80,7 +100,7 @@ end)
 --- Returns:
 ---  * The Windows object
 function obj:init()
-  self.logger.e("init")
+  self.logger.d("init")
   self._init_done = true
   flags_event:start()
   return self
