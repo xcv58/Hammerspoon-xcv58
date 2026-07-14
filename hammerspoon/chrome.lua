@@ -1,11 +1,17 @@
 local hyper = {"cmd", "ctrl"}
+local chromeBundleID = "com.google.Chrome"
+
+local function isChromeFrontmost()
+    local app = hs.application.frontmostApplication()
+    return app ~= nil and app:bundleID() == chromeBundleID
+end
 
 local function toggleSidebar()
-    if hs.application.frontmostApplication():bundleID() ~= "com.google.Chrome" then
+    if not isChromeFrontmost() then
         return
     end
 
-    local chrome = hs.application.get("com.google.Chrome")
+    local chrome = hs.application.get(chromeBundleID)
     if not chrome then
         hs.alert.show("Chrome not running")
         return
@@ -50,7 +56,7 @@ local sidebarHotkey = hs.hotkey.new(hyper, "s", toggleSidebar)
 
 local function handleAppEvent(_, event, app)
     if event == hs.application.watcher.activated then
-        if app:bundleID() == "com.google.Chrome" then
+        if app and app:bundleID() == chromeBundleID then
             sidebarHotkey:enable()
         else
             sidebarHotkey:disable()
@@ -61,7 +67,7 @@ end
 local chromeWatcher = hs.application.watcher.new(handleAppEvent)
 chromeWatcher:start()
 
-if hs.application.frontmostApplication():bundleID() == "com.google.Chrome" then
+if isChromeFrontmost() then
     sidebarHotkey:enable()
 end
 
