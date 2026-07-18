@@ -13,7 +13,9 @@ hs.alert.defaultStyle.textSize = 64
 -----------------------------------------------
 -- Reload config on write
 -----------------------------------------------
-hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", utils.reloadConfig):start()
+utils.configWatcher = hs.pathwatcher.new(
+    os.getenv("HOME") .. "/.hammerspoon/", utils.reloadConfig
+):start()
 hs.alert.show("Config loaded")
 
 hs.ipc.cliInstall()
