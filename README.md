@@ -51,6 +51,8 @@ Personal [Hammerspoon](https://www.hammerspoon.org/) configuration with window m
 | `Cmd+Ctrl+Shift + X` | Center window |
 | `Cmd+Ctrl+Shift + F` | Fullscreen |
 | `Cmd+Ctrl + F` | Fullscreen (alt binding) |
+| `Cmd+Ctrl+Shift + P` | Move window to previous screen |
+| `Cmd+Ctrl+Shift + N` | Move window to next screen |
 | `Cmd+Ctrl+Shift + R` | Resize to 1440x900 and center |
 | `Cmd+Ctrl+Shift + O` | Open window hotkey modal (see below) |
 

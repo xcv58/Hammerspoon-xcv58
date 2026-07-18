@@ -103,6 +103,23 @@ local function moveWindowTop() resizeWindow({y = -getStepY()}) end
 
 local function moveWindowBottom() resizeWindow({y = getStepY()}) end
 
+local function moveWindowToScreen(direction, label)
+    local win = getFocusedWindow()
+    if not win then return end
+    local currentScreen = win:screen()
+    local targetScreen = currentScreen[direction](currentScreen)
+    win:moveToScreen(targetScreen)
+    windowAlert(label)
+end
+
+local function moveWindowToPreviousScreen()
+    moveWindowToScreen("previous", "Previous Screen")
+end
+
+local function moveWindowToNextScreen()
+    moveWindowToScreen("next", "Next Screen")
+end
+
 local function resize(x, y, w, h)
     local win = getFocusedWindow()
     if not win then return end
@@ -254,6 +271,12 @@ hs.hotkey.bind(hyper, "f", fullscreen)
 -- CMD+Ctrl+f for fullscreen
 -----------------------------------------------
 hs.hotkey.bind({"cmd", "ctrl"}, "f", fullscreen)
+
+-----------------------------------------------
+-- Hyper p/n to move the focused window between screens
+-----------------------------------------------
+hs.hotkey.bind(hyper, "p", moveWindowToPreviousScreen)
+hs.hotkey.bind(hyper, "n", moveWindowToNextScreen)
 
 -- Set hotkey modal
 local function getIndicator()
