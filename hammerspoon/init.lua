@@ -4,6 +4,7 @@ require "control"
 require "timer"
 require "events"
 require "chrome"
+require "quick-url"
 
 -- Hold Control + Option to move the window under the cursor.
 hs.loadSpoon("Windows")

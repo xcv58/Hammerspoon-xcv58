@@ -18,6 +18,7 @@ Personal [Hammerspoon](https://www.hammerspoon.org/) configuration with window m
 | `timer.lua` | Desktop clock overlay that displays on all spaces |
 | `events.lua` | Auto-mute on screen lock, auto-unmute on unlock |
 | `utils.lua` | Config reload on file change, manual reload hotkey |
+| `quick-url.lua` | Opens selected text or clipboard content as a URL, go-link, or Google search |
 | `slack/` | Slack accessibility helpers (focus message boxes, set status, leave channel) |
 
 ## Spoons
@@ -92,6 +93,12 @@ Personal [Hammerspoon](https://www.hammerspoon.org/) configuration with window m
 | Hotkey | Action |
 |--------|--------|
 | `Cmd+Ctrl+Alt + R` | Reload Hammerspoon config |
+
+### Smart URL (`quick-url.lua`)
+
+| Hotkey | Action |
+|--------|--------|
+| `Ctrl+Shift + S` | Copy the current selection (or use the clipboard), then open an `http(s)` URL, `go/...` link, bare domain, or Google search |
 
 ### Shortcuts Spoon (`Shortcuts.spoon`)
 
