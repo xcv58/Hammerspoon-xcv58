@@ -14,15 +14,12 @@ hammerspoon/
   timer.lua         # Desktop clock overlay
   events.lua        # Screen lock/unlock handlers
   utils.lua         # Config reload utility
-  slack/
-    init.lua        # Slack module entry point
-    focus.lua       # Slack AX accessibility helpers
-    find.lua        # AX tree search utilities
-    debug.lua       # AX debug helpers
+  chrome.lua        # Chrome tab-sidebar toggle
+  quick-url.lua     # Open selections or clipboard text as URLs/searches
   Spoons/
-    Calendar.spoon/     # Desktop calendar widget
-    Shortcuts.spoon/    # macOS Shortcuts integration
-    Windows.spoon/      # Mouse-driven window move/resize
+    Calendar.spoon/     # Available but not loaded
+    Shortcuts.spoon/    # Available but not loaded
+    Windows.spoon/      # Mouse-driven window move/resize; loaded
     ModalMgr.spoon/     # Available but not loaded
     CircleClock.spoon/  # Available but not loaded
     Microphone.spoon/   # Available but not loaded
@@ -34,7 +31,7 @@ hammerspoon/
 - **Module loading**: `init.lua` uses `require` for core modules and `hs.loadSpoon()` for Spoons
 - **Hyper key**: Two hyper combos are used:
   - `{"cmd", "ctrl", "shift"}` (3-key) in `window.lua`
-  - `{"cmd", "ctrl"}` (2-key) in `control.lua`, `timer.lua`, `Shortcuts.spoon`
+  - `{"cmd", "ctrl"}` (2-key) in `control.lua`, `timer.lua`, and `chrome.lua`
 - **Spoon convention**: Each Spoon lives in `Spoons/<Name>.spoon/init.lua`, returns a table with an `:init()` method
 
 ## Making Changes
@@ -47,8 +44,7 @@ hammerspoon/
 
 ## Notes
 
-- `launcher.lua` exists but is commented out in `init.lua` (disabled)
-- `ModalMgr.spoon` is available but not loaded (commented out)
+- Only `Windows.spoon` is loaded by the current `init.lua`; the other bundled Spoons are available but disabled
 - The `events.lua` module calls `setMuted()` from `control.lua` — `control.lua` must be loaded first
 - Lua files use a mix of `local` and global functions; prefer `local` for new code
 - **Always check whether `README.md` and `AGENTS.md` need updates** when adding, removing, or changing modules, Spoons, or hotkeys
