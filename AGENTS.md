@@ -33,6 +33,7 @@ hammerspoon/
   - `{"cmd", "ctrl", "shift"}` (3-key) in `window.lua`
   - `{"cmd", "ctrl"}` (2-key) in `control.lua`, `timer.lua`, and `chrome.lua`
 - **Spoon convention**: Each Spoon lives in `Spoons/<Name>.spoon/init.lua`, returns a table with an `:init()` method
+- **Chrome sidebar**: `Cmd+Ctrl+S` sends Chrome's native `Cmd+Shift+L` collapse/expand shortcut; requires a Chrome version that supports it
 
 ## Making Changes
 

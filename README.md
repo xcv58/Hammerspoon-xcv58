@@ -109,7 +109,9 @@ Window movement and resizing in the modal use increments of one tenth of the cur
 
 | Hotkey | Action |
 |--------|--------|
-| `Cmd+Ctrl + S` | Toggle Chrome's tab sidebar; enabled only while Chrome is frontmost |
+| `Cmd+Ctrl + S` | Toggle Chrome's tab sidebar via its native `Cmd+Shift+L` command; enabled only while Chrome is frontmost |
+
+Requires a Chrome version with the native vertical-tab collapse/expand shortcut.
 
 ### Windows Spoon (mouse-driven, no hotkeys)
 
